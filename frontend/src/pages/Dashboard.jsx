@@ -10,20 +10,20 @@ const DEFAULT_ZONE = 'anand-vihar';
 
 export default function Dashboard() {
   // ── Zone data ────────────────────────────────────────────────
-  const [zones,     setZones]     = useState(FALLBACK_ZONES);
+  const [zones, setZones] = useState(FALLBACK_ZONES);
   const [selectedZone, setSelectedZone] = useState(DEFAULT_ZONE);
 
   // ── Per-zone detail ──────────────────────────────────────────
-  const [forecast,     setForecast]     = useState(null);
-  const [attribution,  setAttribution]  = useState(null);
-  const [enforcement,  setEnforcement]  = useState(null);
+  const [forecast, setForecast] = useState(null);
+  const [attribution, setAttribution] = useState(null);
+  const [enforcement, setEnforcement] = useState(null);
 
   const [fLoading, setFLoading] = useState(false);
   const [aLoading, setALoading] = useState(false);
   const [eLoading, setELoading] = useState(false);
-  const [fError,   setFError]   = useState(null);
-  const [aError,   setAError]   = useState(null);
-  const [eError,   setEError]   = useState(null);
+  const [fError, setFError] = useState(null);
+  const [aError, setAError] = useState(null);
+  const [eError, setEError] = useState(null);
 
   // ── Active side panel tab ────────────────────────────────────
   const [sideTab, setSideTab] = useState('forecast'); // 'forecast' | 'attribution'
@@ -39,7 +39,7 @@ export default function Dashboard() {
   useEffect(() => {
     setELoading(true);
     setEError(null);
-    fetchEnforcementPriorities(10)
+    fetchEnforcementPriorities(50)
       .then(data => setEnforcement(data))
       .catch(err => setEError(err.message))
       .finally(() => setELoading(false));
@@ -48,12 +48,14 @@ export default function Dashboard() {
   // Load forecast + attribution whenever zone changes
   const loadZoneData = useCallback((zoneId) => {
     setFLoading(true); setFError(null);
+    setForecast(null);
     fetchForecast(zoneId)
       .then(d => setForecast(d))
       .catch(e => setFError(e.message))
       .finally(() => setFLoading(false));
 
     setALoading(true); setAError(null);
+    setAttribution(null);
     fetchAttribution(zoneId)
       .then(d => setAttribution(d))
       .catch(e => setAError(e.message))
@@ -186,7 +188,7 @@ export default function Dashboard() {
               </div>
             </div>
             <EnforcementList
-              priorities={enforcement?.priorities || []}
+              priorities={(enforcement?.priorities || []).slice(0, 10)}
               selectedZone={selectedZone}
               onZoneClick={setSelectedZone}
               loading={eLoading}
@@ -201,8 +203,8 @@ export default function Dashboard() {
           {/* Tab switcher */}
           <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '0.5rem' }}>
             {[
-              { id: 'forecast',     label: '📈 Forecast' },
-              { id: 'attribution',  label: '🏭 Attribution' },
+              { id: 'forecast', label: '📈 Forecast' },
+              { id: 'attribution', label: '🏭 Attribution' },
             ].map(t => (
               <button
                 key={t.id}

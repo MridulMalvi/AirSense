@@ -1,8 +1,10 @@
 # ─── Environment & Secrets ─────────────────────────────────────────────────────
+# NEVER commit real .env files — they contain API keys
 .env
 *.env
 .env.*
 !.env.example
+!.env.example.*
 *.pem
 *.key
 *.cert
@@ -33,27 +35,40 @@ env/
 ENV/
 Lib/
 Scripts/
+pyvenv.cfg
 
 # Jupyter
 .ipynb_checkpoints/
 *.ipynb
 
-# ML model artifacts (large binary files — store in cloud/DVC, not git)
-ml-service/models/*.pkl
+# ─── ML Artifacts & Generated Files ────────────────────────────────────────────
+# Generated chart/plot images (re-creatable, not source code)
+ml-service/forecast_vs_actual.png
+ml-service/**/*.png
+ml-service/**/*.jpg
+
+# NOTE: *.pkl files ARE tracked intentionally — they are pre-trained seasonal
+# SARIMA models required for the app to serve forecasts without a slow re-training
+# step at every startup. To regenerate: `python forecasting/train_seasonal_models.py`
+# ml-service/models/*.pkl  ← intentionally NOT ignored
+
+# Other large model formats (not used in this project)
 ml-service/models/*.joblib
 ml-service/models/*.h5
 ml-service/models/*.pt
 ml-service/models/*.onnx
+ml-service/models/*.pb
+ml-service/models/*.tflite
 
-# Large data files (keep sample CSVs, ignore raw/processed dumps)
-ml-service/data/*.csv.bak
+# Large data dumps (keep sample CSVs — they are source data)
 ml-service/data/raw/
 ml-service/data/processed/
-generate_chart.py
+ml-service/data/*.csv.bak
+ml-service/data/prophet_cache/
+cmdstan/
 
 # Stan/Prophet compiled model cache
 ml-service/data/prophet_cache/
-cmdstan/
 
 # ─── Node.js ───────────────────────────────────────────────────────────────────
 node_modules/
@@ -66,8 +81,9 @@ yarn-error.log*
 .yarn/unplugged
 .yarn/build-state.yml
 package-lock.json.bak
+# NOTE: package-lock.json IS tracked — locks exact dep versions for reproducible installs
 
-# ─── Frontend Build ────────────────────────────────────────────────────────────
+# ─── Frontend Build Output ─────────────────────────────────────────────────────
 frontend/dist/
 frontend/build/
 frontend/.vite/
@@ -85,7 +101,7 @@ dump.rdb
 *.rdb
 mongodb_data/
 .mongo/
-
+redis-data/
 
 # ─── Docker ────────────────────────────────────────────────────────────────────
 .docker/
@@ -116,6 +132,7 @@ $RECYCLE.BIN/
 *.sw?
 .project
 .classpath
+*.code-workspace
 
 # ─── Testing & Coverage ────────────────────────────────────────────────────────
 coverage/
@@ -123,7 +140,7 @@ coverage/
 test-results/
 playwright-report/
 
-# ─── Misc ──────────────────────────────────────────────────────────────────────
+# ─── Misc Temp Files ───────────────────────────────────────────────────────────
 *.tmp
 *.temp
 *.bak
@@ -131,7 +148,9 @@ playwright-report/
 .cache/
 tmp/
 temp/
+generate_chart.py
 
-# ─── AI / IDE Artifacts ────────────────────────────────────────────────────────
+# ─── AI / IDE Context Files ────────────────────────────────────────────────────
 # AI-generated memory/context files — not project source, may contain secrets
 codebase_map.md
+.gemini/
