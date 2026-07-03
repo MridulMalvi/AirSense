@@ -117,11 +117,14 @@ airsense/
 ├── frontend/                   # React app
 │   ├── src/
 │   │   ├── components/
+│   │   │   ├── NavBar.jsx          # Top nav with theme toggle button
 │   │   │   ├── MapView.jsx
 │   │   │   ├── ForecastChart.jsx
 │   │   │   ├── EnforcementList.jsx
 │   │   │   ├── CityCompare.jsx
 │   │   │   └── AdvisoryChat.jsx
+│   │   ├── context/
+│   │   │   └── ThemeContext.jsx    # Light/Dark mode — React Context + localStorage
 │   │   ├── pages/
 │   │   └── App.jsx
 │   └── package.json
@@ -204,6 +207,18 @@ Full request/response schemas to be documented in `backend/src/routes/*` as they
 ---
 
 ## Feature Breakdown
+
+### 0. UI — Light / Dark Mode Toggle
+
+The frontend supports a **persistent Light/Dark theme** switchable from the navbar:
+
+- A **Sun icon** is shown in dark mode (click to switch to light). A **Moon icon** is shown in light mode (click to switch to dark).
+- Preference is saved to `localStorage` and restored on page reload.
+- On first visit, the theme defaults to the user's **OS/system preference** (`prefers-color-scheme`).
+- Implemented via a `ThemeContext` (React Context API) that toggles a `dark`/`light` class on `<html>`. All colours are driven by CSS custom properties (`--bg-primary`, `--text-primary`, etc.) defined per theme in `index.css` — no Tailwind required.
+- No additional npm packages were added; icons are inline SVGs.
+
+---
 
 ### 1. Source Attribution Engine
 Weighted scoring model combining AQI spike data + land-use + traffic + wind direction. Outputs per-zone confidence scores per source category. **Not a black box** — every score is traceable to its inputs, shown in UI as a breakdown.
