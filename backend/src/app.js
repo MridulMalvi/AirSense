@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+mongoose.set('bufferCommands', false);
 
 // Route imports
 const forecastRoutes = require('./routes/forecast.routes');
