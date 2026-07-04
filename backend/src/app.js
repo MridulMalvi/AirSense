@@ -12,6 +12,9 @@ const citiesRoutes = require('./routes/cities.routes');
 const advisoryRoutes = require('./routes/advisory.routes');
 const zonesRoutes = require('./routes/zones.routes');
 
+// Services
+const { initAlertService } = require('./services/alertService');
+
 const app = express();
 
 // ─── Middleware ────────────────────────────────────────────────────────────────
@@ -65,6 +68,8 @@ mongoose
       console.log(`🚀 AirSense backend running on port ${PORT}`);
       console.log(`   DEMO_MODE: ${process.env.DEMO_MODE === 'true' ? '✅ ON' : '❌ OFF'}`);
       console.log(`   ML_SERVICE: ${process.env.ML_SERVICE_URL || 'http://localhost:8001'}`);
+      // Start the automated AQI alert cron job
+      initAlertService();
     });
   })
   .catch((err) => {
@@ -72,6 +77,8 @@ mongoose
     console.log('⚠️  Starting without DB — some routes will fall back to mock data');
     app.listen(PORT, () => {
       console.log(`🚀 AirSense backend (no-DB mode) running on port ${PORT}`);
+      // Start alert service even without DB — it doesn't depend on MongoDB
+      initAlertService();
     });
   });
 
