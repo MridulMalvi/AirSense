@@ -32,6 +32,7 @@ Demo city: **Delhi**. Architecture is city-agnostic by design.
 | 🚨 Enforcement Prioritization | "These 5 zones need inspector deployment today, ranked by exposure + confidence" |
 | 🗺️ Multi-City Comparison | "Delhi vs Mumbai vs Kolkata — who's improving, who's not" |
 | 💬 Citizen Advisory | "Aaj bahar mat nikliye, AQI 320 hai aapke area mein" — in Hindi/English |
+| 🤖 Automated Push Alerts | Telegram bot sending real-time notifications to users when forecasted AQI > 300 |
 
 ---
 
@@ -183,6 +184,13 @@ REDIS_URL=redis://localhost:6379
 ML_SERVICE_URL=http://localhost:8001
 OPENWEATHER_API_KEY=your_key_here
 LLM_API_KEY=your_key_here
+
+# Citizen Alert Service (Telegram)
+TELEGRAM_BOT_TOKEN=your_bot_token_here
+TELEGRAM_ALERT_CHAT_ID=your_chat_id_here
+AQI_ALERT_THRESHOLD=300
+ALERT_CRON_SCHEDULE=0 */6 * * *
+ALERTS_ENABLED=true
 ```
 
 **ml-service/.env**
@@ -234,6 +242,12 @@ City-agnostic backend design (city passed as parameter). Delhi shown with live p
 
 ### 5. Citizen Advisory
 LLM-generated, location-aware advisory text in Hindi + English (web chat widget). Uses static POI data (hospitals/schools) to flag vulnerable-population zones for higher-urgency messaging.
+
+### 6. Automated Push Alerts (Citizen Engagement)
+An automated notification service built via the Telegram Bot API (`node-telegram-bot-api`) and scheduled via `node-cron`.
+- **Scheduled Checks:** Periodically triggers (e.g. every 6 hours in production, or 5 minutes in demo mode) to evaluate 24h-ahead hyperlocal AQI forecasts.
+- **Intelligent Thresholds:** Dispatches highly formatted, consolidated HTML alerts to citizens when forecasted AQI > 300 (Severe).
+- **Graceful Failure:** Automatically fails over, skips individual ward errors without halting, and features clean toggling without code removal.
 
 ---
 
