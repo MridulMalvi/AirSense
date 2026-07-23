@@ -1,0 +1,12 @@
+zoneId,name,landUseType,lat,lng,population_estimate,caaqms_station_ref
+anand-vihar,Anand Vihar,industrial,28.6469,77.3152,48000,DPCC_AV_01
+rk-puram,RK Puram,residential,28.5651,77.1876,62000,DPCC_RK_01
+ito,ITO,commercial,28.6271,77.2421,35000,DPCC_ITO_01
+dwarka,Dwarka,residential,28.5921,77.0460,85000,DPCC_DW_01
+rohini,Rohini,residential,28.7413,77.1151,92000,DPCC_RH_01
+punjabi-bagh,Punjabi Bagh,mixed,28.6714,77.1321,54000,DPCC_PB_01
+okhla,Okhla,industrial,28.5355,77.2767,41000,DPCC_OK_01
+narela,Narela,industrial,28.8561,77.0956,28000,DPCC_NR_01
+lodhi-road,Lodhi Road,commercial,28.5918,77.2216,22000,DPCC_LR_01
+wazirpur,Wazirpur,industrial,28.7108,77.1721,33000,DPCC_WZ_01
+mandir-marg,Mandir Marg,commercial,28.6358,77.2010,45000,DPCC_MM_01

@@ -1,0 +1,367 @@
+{
+  "forecast": {
+    "anand-vihar": {
+      "wardId": "anand-vihar",
+      "generatedAt": "2026-06-22T13:00:00Z",
+      "forecast": [
+        { "timestamp": "2026-07-02T00:00:00Z", "predictedAQI": 285, "confidenceLow": 258, "confidenceHigh": 312 },
+        { "timestamp": "2026-07-02T06:00:00Z", "predictedAQI": 310, "confidenceLow": 280, "confidenceHigh": 340 },
+        { "timestamp": "2026-07-02T12:00:00Z", "predictedAQI": 295, "confidenceLow": 268, "confidenceHigh": 322 },
+        { "timestamp": "2026-07-02T18:00:00Z", "predictedAQI": 320, "confidenceLow": 290, "confidenceHigh": 350 },
+        { "timestamp": "2026-07-03T00:00:00Z", "predictedAQI": 298, "confidenceLow": 270, "confidenceHigh": 326 },
+        { "timestamp": "2026-07-03T06:00:00Z", "predictedAQI": 278, "confidenceLow": 251, "confidenceHigh": 305 },
+        { "timestamp": "2026-07-03T12:00:00Z", "predictedAQI": 275, "confidenceLow": 248, "confidenceHigh": 302 },
+        { "timestamp": "2026-07-03T18:00:00Z", "predictedAQI": 290, "confidenceLow": 262, "confidenceHigh": 318 },
+        { "timestamp": "2026-07-04T00:00:00Z", "predictedAQI": 268, "confidenceLow": 241, "confidenceHigh": 295 },
+        { "timestamp": "2026-07-04T06:00:00Z", "predictedAQI": 255, "confidenceLow": 228, "confidenceHigh": 282 },
+        { "timestamp": "2026-07-04T12:00:00Z", "predictedAQI": 265, "confidenceLow": 238, "confidenceHigh": 292 },
+        { "timestamp": "2026-07-04T18:00:00Z", "predictedAQI": 272, "confidenceLow": 245, "confidenceHigh": 299 }
+      ],
+      "baselineComparison": {
+        "modelRMSE": 18.2,
+        "persistenceRMSE": 24.5,
+        "modelName": "SARIMA",
+        "improvementPercent": 25.7
+      }
+    },
+    "rk-puram": {
+      "wardId": "rk-puram",
+      "generatedAt": "2026-06-22T13:00:00Z",
+      "forecast": [
+        { "timestamp": "2026-07-02T00:00:00Z", "predictedAQI": 198, "confidenceLow": 175, "confidenceHigh": 221 },
+        { "timestamp": "2026-07-02T06:00:00Z", "predictedAQI": 215, "confidenceLow": 190, "confidenceHigh": 240 },
+        { "timestamp": "2026-07-02T12:00:00Z", "predictedAQI": 225, "confidenceLow": 199, "confidenceHigh": 251 },
+        { "timestamp": "2026-07-02T18:00:00Z", "predictedAQI": 210, "confidenceLow": 185, "confidenceHigh": 235 },
+        { "timestamp": "2026-07-03T00:00:00Z", "predictedAQI": 202, "confidenceLow": 178, "confidenceHigh": 226 },
+        { "timestamp": "2026-07-03T06:00:00Z", "predictedAQI": 195, "confidenceLow": 171, "confidenceHigh": 219 },
+        { "timestamp": "2026-07-03T12:00:00Z", "predictedAQI": 190, "confidenceLow": 167, "confidenceHigh": 213 },
+        { "timestamp": "2026-07-03T18:00:00Z", "predictedAQI": 200, "confidenceLow": 176, "confidenceHigh": 224 },
+        { "timestamp": "2026-07-04T00:00:00Z", "predictedAQI": 188, "confidenceLow": 164, "confidenceHigh": 212 },
+        { "timestamp": "2026-07-04T06:00:00Z", "predictedAQI": 182, "confidenceLow": 158, "confidenceHigh": 206 },
+        { "timestamp": "2026-07-04T12:00:00Z", "predictedAQI": 185, "confidenceLow": 162, "confidenceHigh": 208 },
+        { "timestamp": "2026-07-04T18:00:00Z", "predictedAQI": 192, "confidenceLow": 168, "confidenceHigh": 216 }
+      ],
+      "baselineComparison": {
+        "modelRMSE": 14.1,
+        "persistenceRMSE": 20.8,
+        "modelName": "SARIMA",
+        "improvementPercent": 32.2
+      }
+    },
+    "okhla": {
+      "wardId": "okhla",
+      "generatedAt": "2026-06-22T13:00:00Z",
+      "forecast": [
+        { "timestamp": "2026-07-02T00:00:00Z", "predictedAQI": 342, "confidenceLow": 310, "confidenceHigh": 374 },
+        { "timestamp": "2026-07-02T06:00:00Z", "predictedAQI": 365, "confidenceLow": 330, "confidenceHigh": 400 },
+        { "timestamp": "2026-07-02T12:00:00Z", "predictedAQI": 350, "confidenceLow": 317, "confidenceHigh": 383 },
+        { "timestamp": "2026-07-02T18:00:00Z", "predictedAQI": 378, "confidenceLow": 342, "confidenceHigh": 414 },
+        { "timestamp": "2026-07-03T00:00:00Z", "predictedAQI": 358, "confidenceLow": 323, "confidenceHigh": 393 },
+        { "timestamp": "2026-07-03T06:00:00Z", "predictedAQI": 340, "confidenceLow": 307, "confidenceHigh": 373 },
+        { "timestamp": "2026-07-03T12:00:00Z", "predictedAQI": 330, "confidenceLow": 298, "confidenceHigh": 362 },
+        { "timestamp": "2026-07-03T18:00:00Z", "predictedAQI": 345, "confidenceLow": 312, "confidenceHigh": 378 },
+        { "timestamp": "2026-07-04T00:00:00Z", "predictedAQI": 320, "confidenceLow": 288, "confidenceHigh": 352 },
+        { "timestamp": "2026-07-04T06:00:00Z", "predictedAQI": 310, "confidenceLow": 279, "confidenceHigh": 341 },
+        { "timestamp": "2026-07-04T12:00:00Z", "predictedAQI": 315, "confidenceLow": 284, "confidenceHigh": 346 },
+        { "timestamp": "2026-07-04T18:00:00Z", "predictedAQI": 325, "confidenceLow": 293, "confidenceHigh": 357 }
+      ],
+      "baselineComparison": {
+        "modelRMSE": 22.5,
+        "persistenceRMSE": 31.0,
+        "modelName": "SARIMA",
+        "improvementPercent": 27.4
+      }
+    }
+  },
+  "attribution": {
+    "anand-vihar": {
+      "zoneId": "anand-vihar",
+      "timestamp": "2026-06-22T13:00:00Z",
+      "currentAQI": 320,
+      "sources": [
+        { "category": "traffic", "confidence": 0.58, "evidence": "High NO2 reading (68 μg/m³), peak hour 8-10 AM, major arterial road intersection" },
+        { "category": "industrial", "confidence": 0.29, "evidence": "Elevated SO2 (32 μg/m³), 3 factories within 2km radius" },
+        { "category": "construction", "confidence": 0.09, "evidence": "PM10:PM2.5 ratio elevated (2.8), 1 active construction permit zone nearby" },
+        { "category": "biomass_burning", "confidence": 0.04, "evidence": "Low — not peak stubble-burning season" }
+      ],
+      "windDirection": "NW",
+      "windSpeed": 4.2,
+      "dominantSource": "traffic"
+    },
+    "okhla": {
+      "zoneId": "okhla",
+      "timestamp": "2026-06-22T13:00:00Z",
+      "currentAQI": 378,
+      "sources": [
+        { "category": "industrial", "confidence": 0.62, "evidence": "High SO2 (58 μg/m³) + CO (2.4 mg/m³), 6 heavy industries within 3km" },
+        { "category": "traffic", "confidence": 0.24, "evidence": "Moderate NO2, arterial road proximity" },
+        { "category": "construction", "confidence": 0.11, "evidence": "PM10 spike detected (380 μg/m³ vs PM2.5 142 μg/m³)" },
+        { "category": "biomass_burning", "confidence": 0.03, "evidence": "Minimal — no fire hotspots detected" }
+      ],
+      "windDirection": "S",
+      "windSpeed": 2.8,
+      "dominantSource": "industrial"
+    },
+    "narela": {
+      "zoneId": "narela",
+      "timestamp": "2026-06-22T13:00:00Z",
+      "currentAQI": 295,
+      "sources": [
+        { "category": "industrial", "confidence": 0.51, "evidence": "Active industrial cluster, elevated PM10, SO2 readings" },
+        { "category": "construction", "confidence": 0.28, "evidence": "Multiple active construction sites, high PM10:PM2.5 ratio" },
+        { "category": "traffic", "confidence": 0.16, "evidence": "Moderate vehicular density on NH-44" },
+        { "category": "biomass_burning", "confidence": 0.05, "evidence": "Peripheral areas, some agricultural activity" }
+      ],
+      "windDirection": "NE",
+      "windSpeed": 3.5,
+      "dominantSource": "industrial"
+    },
+    "rk-puram": {
+      "zoneId": "rk-puram",
+      "timestamp": "2026-06-22T13:00:00Z",
+      "currentAQI": 198,
+      "sources": [
+        { "category": "traffic", "confidence": 0.65, "evidence": "Peak hour commute, Ring Road proximity, high NO2 (45 μg/m³)" },
+        { "category": "industrial", "confidence": 0.15, "evidence": "Upwind industrial area contribution via NW wind" },
+        { "category": "construction", "confidence": 0.12, "evidence": "Residential construction nearby" },
+        { "category": "biomass_burning", "confidence": 0.08, "evidence": "Low-level garden/waste burning detected" }
+      ],
+      "windDirection": "NW",
+      "windSpeed": 5.1,
+      "dominantSource": "traffic"
+    }
+  },
+  "enforcement": {
+    "priorities": [
+      {
+        "zoneId": "okhla",
+        "name": "Okhla",
+        "score": 0.91,
+        "rank": 1,
+        "reason": "Severe AQI (378 — 'Severe' category) with 62% industrial attribution confidence. 6 heavy industries within 3km, elevated SO2 and CO indicate potential emission norm violations. High population exposure (41,000 residents). Immediate industrial inspection warranted.",
+        "evidence": {
+          "aqi": 378,
+          "aqiCategory": "Severe",
+          "population": 41000,
+          "dominantSource": "industrial",
+          "attributionConfidence": 0.62,
+          "keyPollutant": "SO2",
+          "keyPollutantValue": "58 μg/m³",
+          "nearbySourceCount": 6
+        }
+      },
+      {
+        "zoneId": "anand-vihar",
+        "name": "Anand Vihar",
+        "score": 0.87,
+        "rank": 2,
+        "reason": "Very High AQI (320 — 'Very Poor') with 58% traffic attribution. Major bus terminal + arterial intersections. Traffic management intervention (odd-even, signal timing) could reduce peak-hour AQI by an estimated 15-20%. Near residential zones with 48,000 residents.",
+        "evidence": {
+          "aqi": 320,
+          "aqiCategory": "Very Poor",
+          "population": 48000,
+          "dominantSource": "traffic",
+          "attributionConfidence": 0.58,
+          "keyPollutant": "NO2",
+          "keyPollutantValue": "68 μg/m³",
+          "nearbySourceCount": 3
+        }
+      },
+      {
+        "zoneId": "narela",
+        "name": "Narela",
+        "score": 0.76,
+        "rank": 3,
+        "reason": "High AQI (295 — 'Very Poor') with mixed industrial (51%) and construction (28%) attribution. Multiple construction permits active without compliant dust suppression — likely violation of CPCB construction norms. Industrial cluster check recommended.",
+        "evidence": {
+          "aqi": 295,
+          "aqiCategory": "Very Poor",
+          "population": 28000,
+          "dominantSource": "industrial",
+          "attributionConfidence": 0.51,
+          "keyPollutant": "PM10",
+          "keyPollutantValue": "340 μg/m³",
+          "nearbySourceCount": 4
+        }
+      },
+      {
+        "zoneId": "wazirpur",
+        "name": "Wazirpur",
+        "score": 0.68,
+        "rank": 4,
+        "reason": "Elevated AQI (268 — 'Poor') with industrial cluster. Known plating/dyeing industry area with historical SO2 violations. Routine inspection overdue.",
+        "evidence": {
+          "aqi": 268,
+          "aqiCategory": "Poor",
+          "population": 33000,
+          "dominantSource": "industrial",
+          "attributionConfidence": 0.49,
+          "keyPollutant": "SO2",
+          "keyPollutantValue": "41 μg/m³",
+          "nearbySourceCount": 8
+        }
+      },
+      {
+        "zoneId": "rohini",
+        "name": "Rohini",
+        "score": 0.55,
+        "rank": 5,
+        "reason": "Moderate-High AQI (245 — 'Poor') driven by traffic (52%). High residential population (92,000). Traffic enforcement during peak hours (8–10 AM, 5–8 PM) recommended.",
+        "evidence": {
+          "aqi": 245,
+          "aqiCategory": "Poor",
+          "population": 92000,
+          "dominantSource": "traffic",
+          "attributionConfidence": 0.52,
+          "keyPollutant": "NO2",
+          "keyPollutantValue": "38 μg/m³",
+          "nearbySourceCount": 1
+        }
+      }
+    ],
+    "generatedAt": "2026-06-22T13:00:00Z",
+    "totalZonesEvaluated": 10
+  },
+  "cities": {
+    "delhi": {
+      "name": "Delhi",
+      "isLive": true,
+      "historicalAQI": [
+        { "date": "2026-01-01", "aqi": 355 },
+        { "date": "2026-01-15", "aqi": 312 },
+        { "date": "2026-02-01", "aqi": 278 },
+        { "date": "2026-02-15", "aqi": 245 },
+        { "date": "2026-03-01", "aqi": 198 },
+        { "date": "2026-03-15", "aqi": 172 },
+        { "date": "2026-04-01", "aqi": 155 },
+        { "date": "2026-04-15", "aqi": 142 },
+        { "date": "2026-05-01", "aqi": 165 },
+        { "date": "2026-05-15", "aqi": 178 },
+        { "date": "2026-06-01", "aqi": 210 },
+        { "date": "2026-06-15", "aqi": 285 }
+      ]
+    },
+    "mumbai": {
+      "name": "Mumbai",
+      "isLive": false,
+      "dataNote": "Historical CPCB data only — no live forecasting for non-primary cities",
+      "historicalAQI": [
+        { "date": "2026-01-01", "aqi": 178 },
+        { "date": "2026-01-15", "aqi": 165 },
+        { "date": "2026-02-01", "aqi": 145 },
+        { "date": "2026-02-15", "aqi": 132 },
+        { "date": "2026-03-01", "aqi": 118 },
+        { "date": "2026-03-15", "aqi": 105 },
+        { "date": "2026-04-01", "aqi": 98 },
+        { "date": "2026-04-15", "aqi": 92 },
+        { "date": "2026-05-01", "aqi": 110 },
+        { "date": "2026-05-15", "aqi": 125 },
+        { "date": "2026-06-01", "aqi": 142 },
+        { "date": "2026-06-15", "aqi": 158 }
+      ]
+    },
+    "kolkata": {
+      "name": "Kolkata",
+      "isLive": false,
+      "dataNote": "Historical CPCB data only — no live forecasting for non-primary cities",
+      "historicalAQI": [
+        { "date": "2026-01-01", "aqi": 265 },
+        { "date": "2026-01-15", "aqi": 242 },
+        { "date": "2026-02-01", "aqi": 218 },
+        { "date": "2026-02-15", "aqi": 195 },
+        { "date": "2026-03-01", "aqi": 172 },
+        { "date": "2026-03-15", "aqi": 158 },
+        { "date": "2026-04-01", "aqi": 145 },
+        { "date": "2026-04-15", "aqi": 138 },
+        { "date": "2026-05-01", "aqi": 152 },
+        { "date": "2026-05-15", "aqi": 168 },
+        { "date": "2026-06-01", "aqi": 192 },
+        { "date": "2026-06-15", "aqi": 215 }
+      ]
+    }
+  },
+  "advisory": {
+    "sample_responses": {
+      "en_high_aqi": {
+        "reply": "Air quality in your area (Anand Vihar) is currently Very Poor with AQI 320. PM2.5 levels are significantly elevated. Recommendations: Avoid outdoor activities between 8 AM–11 AM and 5 PM–9 PM. If you must go out, wear an N95 mask. Keep windows closed. Those with respiratory conditions or heart disease should stay indoors. Schools and playgrounds in your area should consider restricting outdoor activities today.",
+        "riskLevel": "very-high",
+        "language": "en"
+      },
+      "hi_high_aqi": {
+        "reply": "आपके क्षेत्र (आनंद विहार) में वायु गुणवत्ता 'बहुत खराब' है — AQI 320 है। PM2.5 स्तर खतरनाक रूप से ऊंचे हैं। सुझाव: सुबह 8 से 11 बजे और शाम 5 से 9 बजे के बीच बाहर न जाएं। अगर बाहर जाना ज़रूरी हो तो N95 मास्क पहनें। खिड़कियां बंद रखें। अस्थमा, हृदय रोग या बुज़ुर्ग लोग घर के अंदर रहें।",
+        "riskLevel": "very-high",
+        "language": "hi"
+      },
+      "en_moderate_aqi": {
+        "reply": "Air quality in your area (RK Puram) is Moderate with AQI 198. Sensitive groups (children, elderly, people with asthma) should limit prolonged outdoor exertion. General public can go about normal activities but consider wearing a mask if exercising outdoors.",
+        "riskLevel": "moderate",
+        "language": "en"
+      }
+    }
+  },
+  "cities": {
+    "delhi": {
+      "name": "delhi", "displayName": "Delhi", "isLive": true,
+      "dataNote": "Live AQI pipeline — CAAQMS stations + real-time ingestion",
+      "historicalAQI": [
+        {"date":"2026-04-01","aqi":187},{"date":"2026-04-03","aqi":210},{"date":"2026-04-05","aqi":198},
+        {"date":"2026-04-07","aqi":222},{"date":"2026-04-09","aqi":191},{"date":"2026-04-11","aqi":178},
+        {"date":"2026-04-13","aqi":205},{"date":"2026-04-15","aqi":230},{"date":"2026-04-17","aqi":235},
+        {"date":"2026-04-19","aqi":215},{"date":"2026-04-21","aqi":188},{"date":"2026-04-23","aqi":168},
+        {"date":"2026-04-25","aqi":180},{"date":"2026-04-27","aqi":205},{"date":"2026-04-29","aqi":198},
+        {"date":"2026-05-01","aqi":172},{"date":"2026-05-03","aqi":158},{"date":"2026-05-05","aqi":170},
+        {"date":"2026-05-07","aqi":185},{"date":"2026-05-09","aqi":188},{"date":"2026-05-11","aqi":165},
+        {"date":"2026-05-13","aqi":150},{"date":"2026-05-15","aqi":138},{"date":"2026-05-17","aqi":150},
+        {"date":"2026-05-19","aqi":165},{"date":"2026-05-21","aqi":168},{"date":"2026-05-23","aqi":148},
+        {"date":"2026-05-25","aqi":135},{"date":"2026-05-27","aqi":122},{"date":"2026-05-29","aqi":115},
+        {"date":"2026-05-31","aqi":102},{"date":"2026-06-02","aqi":88},{"date":"2026-06-04","aqi":78},
+        {"date":"2026-06-06","aqi":68},{"date":"2026-06-08","aqi":62},{"date":"2026-06-10","aqi":55},
+        {"date":"2026-06-12","aqi":65},{"date":"2026-06-14","aqi":68},{"date":"2026-06-16","aqi":58},
+        {"date":"2026-06-18","aqi":52},{"date":"2026-06-20","aqi":48},{"date":"2026-06-22","aqi":58},
+        {"date":"2026-06-24","aqi":65},{"date":"2026-06-26","aqi":55},{"date":"2026-06-29","aqi":61}
+      ]
+    },
+    "mumbai": {
+      "name": "mumbai", "displayName": "Mumbai", "isLive": false,
+      "dataNote": "Historical CPCB archives — Bandra, Worli, Chembur stations",
+      "historicalAQI": [
+        {"date":"2026-04-01","aqi":128},{"date":"2026-04-03","aqi":142},{"date":"2026-04-05","aqi":130},
+        {"date":"2026-04-07","aqi":132},{"date":"2026-04-09","aqi":136},{"date":"2026-04-11","aqi":122},
+        {"date":"2026-04-13","aqi":125},{"date":"2026-04-15","aqi":140},{"date":"2026-04-17","aqi":142},
+        {"date":"2026-04-19","aqi":128},{"date":"2026-04-21","aqi":115},{"date":"2026-04-23","aqi":108},
+        {"date":"2026-04-25","aqi":118},{"date":"2026-04-27","aqi":132},{"date":"2026-04-29","aqi":130},
+        {"date":"2026-05-01","aqi":115},{"date":"2026-05-03","aqi":102},{"date":"2026-05-05","aqi":105},
+        {"date":"2026-05-07","aqi":118},{"date":"2026-05-09","aqi":120},{"date":"2026-05-11","aqi":105},
+        {"date":"2026-05-13","aqi":92},{"date":"2026-05-15","aqi":85},{"date":"2026-05-17","aqi":95},
+        {"date":"2026-05-19","aqi":108},{"date":"2026-05-21","aqi":110},{"date":"2026-05-23","aqi":95},
+        {"date":"2026-05-25","aqi":82},{"date":"2026-05-27","aqi":75},{"date":"2026-05-29","aqi":70},
+        {"date":"2026-05-31","aqi":65},{"date":"2026-06-02","aqi":60},{"date":"2026-06-04","aqi":55},
+        {"date":"2026-06-06","aqi":50},{"date":"2026-06-08","aqi":46},{"date":"2026-06-10","aqi":43},
+        {"date":"2026-06-12","aqi":50},{"date":"2026-06-14","aqi":52},{"date":"2026-06-16","aqi":45},
+        {"date":"2026-06-18","aqi":42},{"date":"2026-06-20","aqi":38},{"date":"2026-06-22","aqi":44},
+        {"date":"2026-06-24","aqi":50},{"date":"2026-06-26","aqi":43},{"date":"2026-06-29","aqi":46}
+      ]
+    },
+    "kolkata": {
+      "name": "kolkata", "displayName": "Kolkata", "isLive": false,
+      "dataNote": "Historical CPCB archives — Ballygunge, Jadavpur, Victoria stations",
+      "historicalAQI": [
+        {"date":"2026-04-01","aqi":158},{"date":"2026-04-03","aqi":172},{"date":"2026-04-05","aqi":160},
+        {"date":"2026-04-07","aqi":162},{"date":"2026-04-09","aqi":178},{"date":"2026-04-11","aqi":165},
+        {"date":"2026-04-13","aqi":152},{"date":"2026-04-15","aqi":155},{"date":"2026-04-17","aqi":170},
+        {"date":"2026-04-19","aqi":158},{"date":"2026-04-21","aqi":145},{"date":"2026-04-23","aqi":138},
+        {"date":"2026-04-25","aqi":148},{"date":"2026-04-27","aqi":162},{"date":"2026-04-29","aqi":160},
+        {"date":"2026-05-01","aqi":145},{"date":"2026-05-03","aqi":132},{"date":"2026-05-05","aqi":135},
+        {"date":"2026-05-07","aqi":148},{"date":"2026-05-09","aqi":150},{"date":"2026-05-11","aqi":135},
+        {"date":"2026-05-13","aqi":122},{"date":"2026-05-15","aqi":115},{"date":"2026-05-17","aqi":125},
+        {"date":"2026-05-19","aqi":138},{"date":"2026-05-21","aqi":140},{"date":"2026-05-23","aqi":125},
+        {"date":"2026-05-25","aqi":112},{"date":"2026-05-27","aqi":105},{"date":"2026-05-29","aqi":100},
+        {"date":"2026-05-31","aqi":95},{"date":"2026-06-02","aqi":88},{"date":"2026-06-04","aqi":82},
+        {"date":"2026-06-06","aqi":78},{"date":"2026-06-08","aqi":72},{"date":"2026-06-10","aqi":68},
+        {"date":"2026-06-12","aqi":76},{"date":"2026-06-14","aqi":78},{"date":"2026-06-16","aqi":70},
+        {"date":"2026-06-18","aqi":66},{"date":"2026-06-20","aqi":62},{"date":"2026-06-22","aqi":70},
+        {"date":"2026-06-24","aqi":77},{"date":"2026-06-26","aqi":68},{"date":"2026-06-29","aqi":72}
+      ]
+    }
+  }
+}

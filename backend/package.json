@@ -1,0 +1,35 @@
+{
+  "name": "airsense-backend",
+  "version": "1.0.0",
+  "description": "AirSense Node.js/Express backend — AI Urban Air Quality Intelligence Platform",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "seed": "node src/seed.js",
+    "smoke": "node scripts/smoke-test.js",
+    "check": "node --check src/app.js && node --check src/routes/forecast.routes.js && node --check src/routes/attribution.routes.js && node --check src/routes/enforcement.routes.js && node --check src/routes/cities.routes.js && node --check src/routes/advisory.routes.js && node --check src/routes/live.routes.js && node --check src/routes/traffic.routes.js && node --check src/routes/reports.routes.js && node --check src/routes/alerts.routes.js && node --check src/routes/simulation.routes.js && node --check src/services/ml-client.js && node --check src/services/llm-client.js && node --check src/services/cache.js && node --check src/services/zones.js && node --check src/services/mock-data.js && node --check src/services/aqi-calculator.js && node --check src/services/openweather-client.js && node --check src/services/live-data.js && node --check src/services/traffic-client.js && node --check src/services/cloudinary-client.js && node --check src/services/groq-vision-client.js && node --check src/services/report-signals.js && node --check src/services/firebase-client.js && node --check src/services/alert-service.js && node --check src/seed.js && node --check src/ingest.js && node --check scripts/smoke-test.js",
+    "test": "npm run check",
+    "ingest": "node src/ingest.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.10.0",
+    "axios": "^1.7.0",
+    "cloudinary": "^2.10.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.0",
+    "express": "^4.19.0",
+    "firebase-admin": "^14.1.0",
+    "mongodb": "^7.3.0",
+    "mongoose": "^8.4.0",
+    "multer": "^2.2.0",
+    "openai": "^4.50.0",
+    "redis": "^4.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,816 @@
+﻿{
+    "forecast":  {
+                     "wardId":  "anand-vihar",
+                     "generatedAt":  "2026-06-29T16:51:55.577726+00:00",
+                     "forecast":  [
+                                      {
+                                          "timestamp":  "2026-06-29T16:32:03.495904+00:00",
+                                          "predictedAQI":  179,
+                                          "confidenceLow":  166,
+                                          "confidenceHigh":  192
+                                      },
+                                      {
+                                          "timestamp":  "2026-06-29T22:32:03.495904+00:00",
+                                          "predictedAQI":  181,
+                                          "confidenceLow":  168,
+                                          "confidenceHigh":  194
+                                      },
+                                      {
+                                          "timestamp":  "2026-06-30T04:32:03.495904+00:00",
+                                          "predictedAQI":  191,
+                                          "confidenceLow":  178,
+                                          "confidenceHigh":  204
+                                      },
+                                      {
+                                          "timestamp":  "2026-06-30T10:32:03.495904+00:00",
+                                          "predictedAQI":  186,
+                                          "confidenceLow":  173,
+                                          "confidenceHigh":  199
+                                      },
+                                      {
+                                          "timestamp":  "2026-06-30T16:32:03.495904+00:00",
+                                          "predictedAQI":  175,
+                                          "confidenceLow":  162,
+                                          "confidenceHigh":  188
+                                      },
+                                      {
+                                          "timestamp":  "2026-06-30T22:32:03.495904+00:00",
+                                          "predictedAQI":  179,
+                                          "confidenceLow":  166,
+                                          "confidenceHigh":  192
+                                      },
+                                      {
+                                          "timestamp":  "2026-07-01T04:32:03.495904+00:00",
+                                          "predictedAQI":  190,
+                                          "confidenceLow":  177,
+                                          "confidenceHigh":  203
+                                      }
+                                  ],
+                     "baselineComparison":  {
+                                                "modelRMSE":  9,
+                                                "persistenceRMSE":  12,
+                                                "modelName":  "SARIMA-Real",
+                                                "improvementPercent":  25
+                                            },
+                     "dataSource":  "real-model"
+                 },
+    "enforcement":  {
+                        "generatedAt":  "2026-06-29T16:50:58.045285+00:00",
+                        "priorities":  [
+                                           {
+                                               "zoneId":  "rohini",
+                                               "name":  "Rohini",
+                                               "score":  0.516,
+                                               "rank":  1,
+                                               "reason":  "AQI 56 (Satisfactory) with 57% construction attribution confidence. ~92,000 residents exposed. Dispatch municipal squads to enforce dust control norms (water sprinkling, covers) at active construction sites. High PM10 suggests fugitive dust.",
+                                               "evidence":  {
+                                                                "aqi":  56,
+                                                                "aqiCategory":  "Satisfactory",
+                                                                "population":  92000,
+                                                                "dominantSource":  "construction",
+                                                                "attributionConfidence":  0.57
+                                                            }
+                                           },
+                                           {
+                                               "zoneId":  "dwarka",
+                                               "name":  "Dwarka",
+                                               "score":  0.484,
+                                               "rank":  2,
+                                               "reason":  "AQI 64 (Satisfactory) with 52% construction attribution confidence. ~85,000 residents exposed. Dispatch municipal squads to enforce dust control norms (water sprinkling, covers) at active construction sites. High PM10 suggests fugitive dust.",
+                                               "evidence":  {
+                                                                "aqi":  64,
+                                                                "aqiCategory":  "Satisfactory",
+                                                                "population":  85000,
+                                                                "dominantSource":  "construction",
+                                                                "attributionConfidence":  0.52
+                                                            }
+                                           },
+                                           {
+                                               "zoneId":  "rk-puram",
+                                               "name":  "Rk Puram",
+                                               "score":  0.411,
+                                               "rank":  3,
+                                               "reason":  "AQI 62 (Satisfactory) with 53% construction attribution confidence. ~62,000 residents exposed. Dispatch municipal squads to enforce dust control norms (water sprinkling, covers) at active construction sites. High PM10 suggests fugitive dust.",
+                                               "evidence":  {
+                                                                "aqi":  62,
+                                                                "aqiCategory":  "Satisfactory",
+                                                                "population":  62000,
+                                                                "dominantSource":  "construction",
+                                                                "attributionConfidence":  0.53
+                                                            }
+                                           },
+                                           {
+                                               "zoneId":  "punjabi-bagh",
+                                               "name":  "Punjabi Bagh",
+                                               "score":  0.356,
+                                               "rank":  4,
+                                               "reason":  "AQI 60 (Satisfactory) with 44% construction attribution confidence. ~54,000 residents exposed. Dispatch municipal squads to enforce dust control norms (water sprinkling, covers) at active construction sites. High PM10 suggests fugitive dust.",
+                                               "evidence":  {
+                                                                "aqi":  60,
+                                                                "aqiCategory":  "Satisfactory",
+                                                                "population":  54000,
+                                                                "dominantSource":  "construction",
+                                                                "attributionConfidence":  0.44
+                                                            }
+                                           },
+                                           {
+                                               "zoneId":  "anand-vihar",
+                                               "name":  "Anand Vihar",
+                                               "score":  0.34,
+                                               "rank":  5,
+                                               "reason":  "AQI 68 (Satisfactory) with 43% industrial attribution confidence. ~48,000 residents exposed. Deploy inspection teams to local industrial clusters to check for unauthorized emissions or overnight dumping. Elevated SO2/NO2 indicate active combustion.",
+                                               "evidence":  {
+                                                                "aqi":  68,
+                                                                "aqiCategory":  "Satisfactory",
+                                                                "population":  48000,
+                                                                "dominantSource":  "industrial",
+                                                                "attributionConfidence":  0.43
+                                                            }
+                                           },
+                                           {
+                                               "zoneId":  "mandir-marg",
+                                               "name":  "Mandir Marg",
+                                               "score":  0.336,
+                                               "rank":  6,
+                                               "reason":  "AQI 71 (Satisfactory) with 44% construction attribution confidence. ~45,000 residents exposed. Dispatch municipal squads to enforce dust control norms (water sprinkling, covers) at active construction sites. High PM10 suggests fugitive dust.",
+                                               "evidence":  {
+                                                                "aqi":  71,
+                                                                "aqiCategory":  "Satisfactory",
+                                                                "population":  45000,
+                                                                "dominantSource":  "construction",
+                                                                "attributionConfidence":  0.44
+                                                            }
+                                           },
+                                           {
+                                               "zoneId":  "okhla",
+                                               "name":  "Okhla",
+                                               "score":  0.322,
+                                               "rank":  7,
+                                               "reason":  "AQI 70 (Satisfactory) with 44% industrial attribution confidence. ~41,000 residents exposed. Deploy inspection teams to local industrial clusters to check for unauthorized emissions or overnight dumping. Elevated SO2/NO2 indicate active combustion.",
+                                               "evidence":  {
+                                                                "aqi":  70,
+                                                                "aqiCategory":  "Satisfactory",
+                                                                "population":  41000,
+                                                                "dominantSource":  "industrial",
+                                                                "attributionConfidence":  0.44
+                                                            }
+                                           },
+                                           {
+                                               "zoneId":  "ito",
+                                               "name":  "Ito",
+                                               "score":  0.309,
+                                               "rank":  8,
+                                               "reason":  "AQI 64 (Satisfactory) with 48% construction attribution confidence. ~35,000 residents exposed. Dispatch municipal squads to enforce dust control norms (water sprinkling, covers) at active construction sites. High PM10 suggests fugitive dust.",
+                                               "evidence":  {
+                                                                "aqi":  64,
+                                                                "aqiCategory":  "Satisfactory",
+                                                                "population":  35000,
+                                                                "dominantSource":  "construction",
+                                                                "attributionConfidence":  0.48
+                                                            }
+                                           },
+                                           {
+                                               "zoneId":  "wazirpur",
+                                               "name":  "Wazirpur",
+                                               "score":  0.287,
+                                               "rank":  9,
+                                               "reason":  "AQI 63 (Satisfactory) with 43% industrial attribution confidence. ~33,000 residents exposed. Deploy inspection teams to local industrial clusters to check for unauthorized emissions or overnight dumping. Elevated SO2/NO2 indicate active combustion.",
+                                               "evidence":  {
+                                                                "aqi":  63,
+                                                                "aqiCategory":  "Satisfactory",
+                                                                "population":  33000,
+                                                                "dominantSource":  "industrial",
+                                                                "attributionConfidence":  0.43
+                                                            }
+                                           },
+                                           {
+                                               "zoneId":  "lodhi-road",
+                                               "name":  "Lodhi Road",
+                                               "score":  0.271,
+                                               "rank":  10,
+                                               "reason":  "AQI 58 (Satisfactory) with 51% construction attribution confidence. ~22,000 residents exposed. Dispatch municipal squads to enforce dust control norms (water sprinkling, covers) at active construction sites. High PM10 suggests fugitive dust.",
+                                               "evidence":  {
+                                                                "aqi":  58,
+                                                                "aqiCategory":  "Satisfactory",
+                                                                "population":  22000,
+                                                                "dominantSource":  "construction",
+                                                                "attributionConfidence":  0.51
+                                                            }
+                                           }
+                                       ],
+                        "totalZonesEvaluated":  11,
+                        "dataSource":  "real-model",
+                        "fromCache":  true
+                    },
+    "health":  {
+                   "status":  "ok",
+                   "service":  "airsense-backend",
+                   "timestamp":  "2026-06-29T16:51:55.643Z",
+                   "demoMode":  false
+               },
+    "note":  "Demo mode frozen snapshot. Captured from live model on 2026-06-29. Use DEMO_MODE=true in backend/.env to activate.",
+    "capturedAt":  "2026-06-29T22:21:55.6461510+05:30",
+    "cities":  {
+                   "cities":  [
+                                  {
+                                      "name":  "delhi",
+                                      "displayName":  "Delhi",
+                                      "isLive":  true,
+                                      "dataNote":  "Live AQI pipeline — CAAQMS stations + real-time ingestion",
+                                      "historicalAQI":  [
+                                                            {
+                                                                "date":  "2026-04-01",
+                                                                "aqi":  187
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-03",
+                                                                "aqi":  210
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-05",
+                                                                "aqi":  198
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-07",
+                                                                "aqi":  222
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-09",
+                                                                "aqi":  191
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-11",
+                                                                "aqi":  178
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-13",
+                                                                "aqi":  205
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-15",
+                                                                "aqi":  230
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-17",
+                                                                "aqi":  235
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-19",
+                                                                "aqi":  215
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-21",
+                                                                "aqi":  188
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-23",
+                                                                "aqi":  168
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-25",
+                                                                "aqi":  180
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-27",
+                                                                "aqi":  205
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-29",
+                                                                "aqi":  198
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-01",
+                                                                "aqi":  172
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-03",
+                                                                "aqi":  158
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-05",
+                                                                "aqi":  170
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-07",
+                                                                "aqi":  185
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-09",
+                                                                "aqi":  188
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-11",
+                                                                "aqi":  165
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-13",
+                                                                "aqi":  150
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-15",
+                                                                "aqi":  138
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-17",
+                                                                "aqi":  150
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-19",
+                                                                "aqi":  165
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-21",
+                                                                "aqi":  168
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-23",
+                                                                "aqi":  148
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-25",
+                                                                "aqi":  135
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-27",
+                                                                "aqi":  122
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-29",
+                                                                "aqi":  115
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-31",
+                                                                "aqi":  102
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-02",
+                                                                "aqi":  88
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-04",
+                                                                "aqi":  78
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-06",
+                                                                "aqi":  68
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-08",
+                                                                "aqi":  62
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-10",
+                                                                "aqi":  55
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-12",
+                                                                "aqi":  65
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-14",
+                                                                "aqi":  68
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-16",
+                                                                "aqi":  58
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-18",
+                                                                "aqi":  52
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-20",
+                                                                "aqi":  48
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-22",
+                                                                "aqi":  58
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-24",
+                                                                "aqi":  65
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-26",
+                                                                "aqi":  55
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-29",
+                                                                "aqi":  61
+                                                            }
+                                                        ]
+                                  },
+                                  {
+                                      "name":  "mumbai",
+                                      "displayName":  "Mumbai",
+                                      "isLive":  false,
+                                      "dataNote":  "Historical CPCB archives — Bandra, Worli, Chembur stations",
+                                      "historicalAQI":  [
+                                                            {
+                                                                "date":  "2026-04-01",
+                                                                "aqi":  128
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-03",
+                                                                "aqi":  142
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-05",
+                                                                "aqi":  130
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-07",
+                                                                "aqi":  132
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-09",
+                                                                "aqi":  136
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-11",
+                                                                "aqi":  122
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-13",
+                                                                "aqi":  125
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-15",
+                                                                "aqi":  140
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-17",
+                                                                "aqi":  142
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-19",
+                                                                "aqi":  128
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-21",
+                                                                "aqi":  115
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-23",
+                                                                "aqi":  108
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-25",
+                                                                "aqi":  118
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-27",
+                                                                "aqi":  132
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-29",
+                                                                "aqi":  130
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-01",
+                                                                "aqi":  115
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-03",
+                                                                "aqi":  102
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-05",
+                                                                "aqi":  105
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-07",
+                                                                "aqi":  118
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-09",
+                                                                "aqi":  120
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-11",
+                                                                "aqi":  105
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-13",
+                                                                "aqi":  92
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-15",
+                                                                "aqi":  85
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-17",
+                                                                "aqi":  95
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-19",
+                                                                "aqi":  108
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-21",
+                                                                "aqi":  110
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-23",
+                                                                "aqi":  95
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-25",
+                                                                "aqi":  82
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-27",
+                                                                "aqi":  75
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-29",
+                                                                "aqi":  70
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-31",
+                                                                "aqi":  65
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-02",
+                                                                "aqi":  60
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-04",
+                                                                "aqi":  55
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-06",
+                                                                "aqi":  50
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-08",
+                                                                "aqi":  46
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-10",
+                                                                "aqi":  43
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-12",
+                                                                "aqi":  50
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-14",
+                                                                "aqi":  52
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-16",
+                                                                "aqi":  45
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-18",
+                                                                "aqi":  42
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-20",
+                                                                "aqi":  38
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-22",
+                                                                "aqi":  44
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-24",
+                                                                "aqi":  50
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-26",
+                                                                "aqi":  43
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-29",
+                                                                "aqi":  46
+                                                            }
+                                                        ]
+                                  },
+                                  {
+                                      "name":  "kolkata",
+                                      "displayName":  "Kolkata",
+                                      "isLive":  false,
+                                      "dataNote":  "Historical CPCB archives — Ballygunge, Jadavpur, Victoria stations",
+                                      "historicalAQI":  [
+                                                            {
+                                                                "date":  "2026-04-01",
+                                                                "aqi":  158
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-03",
+                                                                "aqi":  172
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-05",
+                                                                "aqi":  160
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-07",
+                                                                "aqi":  162
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-09",
+                                                                "aqi":  178
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-11",
+                                                                "aqi":  165
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-13",
+                                                                "aqi":  152
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-15",
+                                                                "aqi":  155
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-17",
+                                                                "aqi":  170
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-19",
+                                                                "aqi":  158
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-21",
+                                                                "aqi":  145
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-23",
+                                                                "aqi":  138
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-25",
+                                                                "aqi":  148
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-27",
+                                                                "aqi":  162
+                                                            },
+                                                            {
+                                                                "date":  "2026-04-29",
+                                                                "aqi":  160
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-01",
+                                                                "aqi":  145
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-03",
+                                                                "aqi":  132
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-05",
+                                                                "aqi":  135
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-07",
+                                                                "aqi":  148
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-09",
+                                                                "aqi":  150
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-11",
+                                                                "aqi":  135
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-13",
+                                                                "aqi":  122
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-15",
+                                                                "aqi":  115
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-17",
+                                                                "aqi":  125
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-19",
+                                                                "aqi":  138
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-21",
+                                                                "aqi":  140
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-23",
+                                                                "aqi":  125
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-25",
+                                                                "aqi":  112
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-27",
+                                                                "aqi":  105
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-29",
+                                                                "aqi":  100
+                                                            },
+                                                            {
+                                                                "date":  "2026-05-31",
+                                                                "aqi":  95
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-02",
+                                                                "aqi":  88
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-04",
+                                                                "aqi":  82
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-06",
+                                                                "aqi":  78
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-08",
+                                                                "aqi":  72
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-10",
+                                                                "aqi":  68
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-12",
+                                                                "aqi":  76
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-14",
+                                                                "aqi":  78
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-16",
+                                                                "aqi":  70
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-18",
+                                                                "aqi":  66
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-20",
+                                                                "aqi":  62
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-22",
+                                                                "aqi":  70
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-24",
+                                                                "aqi":  77
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-26",
+                                                                "aqi":  68
+                                                            },
+                                                            {
+                                                                "date":  "2026-06-29",
+                                                                "aqi":  72
+                                                            }
+                                                        ]
+                                  }
+                              ],
+                   "dataNote":  "Delhi uses live pipeline; other cities use historical CPCB data only."
+               },
+    "attribution":  {
+                        "zoneId":  "anand-vihar",
+                        "timestamp":  "2026-06-29T16:51:55.634464+00:00",
+                        "currentAQI":  68,
+                        "sources":  [
+                                        {
+                                            "category":  "industrial",
+                                            "confidence":  0.43,
+                                            "evidence":  "SO2: 3.5 μg/m³, land-use: industrial"
+                                        },
+                                        {
+                                            "category":  "construction",
+                                            "confidence":  0.34,
+                                            "evidence":  "PM10:PM2.5 ratio: 2.5 — elevated coarse particles"
+                                        },
+                                        {
+                                            "category":  "traffic",
+                                            "confidence":  0.16,
+                                            "evidence":  "NO2: 10.2 μg/m³, CO: 0.25 mg/m³ — typical traffic signature"
+                                        },
+                                        {
+                                            "category":  "biomass_burning",
+                                            "confidence":  0.06,
+                                            "evidence":  "Seasonal/calendar context; fire hotspot data not yet integrated"
+                                        }
+                                    ],
+                        "windDirection":  "263.0°",
+                        "windSpeed":  3.37,
+                        "temperature":  40.71,
+                        "dominantSource":  "industrial",
+                        "dataSource":  "real-scoring-model",
+                        "weatherDataSource":  "cache",
+                        "aqiSource":  "cache"
+                    }
+}

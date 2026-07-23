@@ -1,0 +1,156 @@
+# ─── Environment & Secrets ─────────────────────────────────────────────────────
+# NEVER commit real .env files — they contain API keys
+.env
+*.env
+.env.*
+!.env.example
+!.env.example.*
+*.pem
+*.key
+*.cert
+
+# ─── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+*.pyd
+.Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+Lib/
+Scripts/
+pyvenv.cfg
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# ─── ML Artifacts & Generated Files ────────────────────────────────────────────
+# Generated chart/plot images (re-creatable, not source code)
+ml-service/forecast_vs_actual.png
+ml-service/**/*.png
+ml-service/**/*.jpg
+
+# NOTE: *.pkl files ARE tracked intentionally — they are pre-trained seasonal
+# SARIMA models required for the app to serve forecasts without a slow re-training
+# step at every startup. To regenerate: `python forecasting/train_seasonal_models.py`
+# ml-service/models/*.pkl  ← intentionally NOT ignored
+
+# Other large model formats (not used in this project)
+ml-service/models/*.joblib
+ml-service/models/*.h5
+ml-service/models/*.pt
+ml-service/models/*.onnx
+ml-service/models/*.pb
+ml-service/models/*.tflite
+
+# Large data dumps (keep sample CSVs — they are source data)
+ml-service/data/raw/
+ml-service/data/processed/
+ml-service/data/*.csv.bak
+ml-service/data/prophet_cache/
+cmdstan/
+
+# Stan/Prophet compiled model cache
+ml-service/data/prophet_cache/
+
+# ─── Node.js ───────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.npm
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+package-lock.json.bak
+# NOTE: package-lock.json IS tracked — locks exact dep versions for reproducible installs
+
+# ─── Frontend Build Output ─────────────────────────────────────────────────────
+frontend/dist/
+frontend/build/
+frontend/.vite/
+
+# ─── Logs ──────────────────────────────────────────────────────────────────────
+logs/
+*.log
+*.log.*
+pids/
+*.pid
+*.seed
+
+# ─── Database & Cache ──────────────────────────────────────────────────────────
+dump.rdb
+*.rdb
+mongodb_data/
+.mongo/
+redis-data/
+
+# ─── Docker ────────────────────────────────────────────────────────────────────
+.docker/
+docker-compose.override.yml
+
+# ─── OS Files ──────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ─── IDE & Editors ─────────────────────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.classpath
+*.code-workspace
+
+# ─── Testing & Coverage ────────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# ─── Misc Temp Files ───────────────────────────────────────────────────────────
+*.tmp
+*.temp
+*.bak
+*.orig
+.cache/
+tmp/
+temp/
+generate_chart.py
+
+# ─── AI / IDE Context Files ────────────────────────────────────────────────────
+# AI-generated memory/context files — not project source, may contain secrets
+codebase_map.md
+.gemini/
