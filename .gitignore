@@ -36,7 +36,7 @@ ENV/
 Lib/
 Scripts/
 pyvenv.cfg
-
+ml-service\.env
 # Jupyter
 .ipynb_checkpoints/
 *.ipynb
