@@ -1,191 +1,256 @@
-# AirSense — AI-Powered Urban Air Quality Intelligence
+# AirSense
 
-> Built for **ET AI Hackathon 2026** — Problem Statement #5 (Smart Cities / Environmental Intelligence)
+AirSense is a Delhi-focused air-quality intelligence dashboard that combines AQI forecasting, pollution source attribution, enforcement prioritization, city comparisons, and citizen advisories in a single app.
 
-AirSense fuses CAAQMS monitoring data, weather, land-use, and population layers into a single intelligence platform that **predicts** AQI hyperlocally, **attributes** pollution to its source, **ranks** enforcement priorities, and **advises** citizens — moving city administration from reactive monitoring to proactive intervention.
-
-Demo city: **Delhi**. Architecture is city-agnostic by design.
+The project is structured as a Python ML microservice, a Node.js/Express backend, and a React frontend. It is designed for demo use and uses mock data fallback when live AI or external services are unavailable.
 
 ---
 
-## Table of Contents
+## What the project does
 
-1. [What This Project Does](#what-this-project-does)
-2. [Architecture](#architecture)
-3. [Tech Stack](#tech-stack)
-4. [Folder Structure](#folder-structure)
-5. [Setup Instructions](#setup-instructions)
-6. [Environment Variables](#environment-variables)
-7. [API Endpoints](#api-endpoints)
-8. [Feature Breakdown](#feature-breakdown)
-9. [Team](#team)
-10. [Roadmap (Post-Hackathon)](#roadmap-post-hackathon)
-
----
-
-## What This Project Does
-
-| Feature | One-line description |
-|---|---|
-| 🌫️ Source Attribution | "This AQI spike near Anand Vihar is 60% traffic, 30% industrial, 10% construction — here's why" |
-| 📈 Hyperlocal Forecasting | "AQI at this ward will hit 'Severe' in 36 hours — here's the trend" |
-| 🚨 Enforcement Prioritization | "These 5 zones need inspector deployment today, ranked by exposure + confidence" |
-| 🗺️ Multi-City Comparison | "Delhi vs Mumbai vs Kolkata — who's improving, who's not" |
-| 💬 Citizen Advisory | "Aaj bahar mat nikliye, AQI 320 hai aapke area mein" — in Hindi/English |
-| 🤖 Automated Push Alerts | Telegram bot sending real-time notifications to users when forecasted AQI > 300 |
+- Forecasts AQI for monitored Delhi zones using a model-backed endpoint with mock fallback
+- Attributes pollution spikes to likely sources such as traffic, industrial activity, and construction
+- Ranks zones by enforcement priority using severity, population exposure, and attribution confidence
+- Compares Delhi with other cities using sample historical data
+- Provides a citizen advisory chat interface for Hindi/English/Kannada responses
+- Exposes a health endpoint and a service architecture that supports demo and local development workflows
 
 ---
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────┐
-│  Data Sources                                    │
-│  CPCB CAAQMS | OpenWeatherMap | OSM | Population │
-└───────────────────────┬───────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────┐
-│  ML Microservice (Python + FastAPI)              │
-│  • forecasting/  → SARIMA / XGBoost model         │
-│  • attribution/  → weighted source-scoring model  │
-│  • enforcement/  → ranking logic                  │
-└───────────────────────┬───────────────────────────┘
-                         │  REST (JSON)
-                         ▼
-┌─────────────────────────────────────────────────┐
-│  Backend (Node.js + Express)                     │
-│  • Data orchestration + Redis caching             │
-│  • MongoDB (geospatial indexes)                   │
-│  • LLM integration (citizen advisory generation)  │
-└───────────────────────┬───────────────────────────┘
-                         │  REST (JSON)
-                         ▼
-┌─────────────────────────────────────────────────┐
-│  Frontend (React)                                │
-│  • Map view (Leaflet) — heatmap + attribution     │
-│  • Forecast charts (per ward)                     │
-│  • Enforcement priority list                      │
-│  • Multi-city comparison view                     │
-│  • Citizen advisory chat widget                    │
-└─────────────────────────────────────────────────┘
+```text
+Frontend (React + Vite)
+        |
+        v
+Backend (Node.js + Express)
+        |
+        +--> ML Service (FastAPI + Python)
+        |
+        +--> MongoDB (best-effort persistence)
+        |
+        +--> Redis cache (best-effort caching)
+
+Demo / mock fallback:
+- backend falls back to mock JSON when database or upstream service is unavailable
+- ML service serves mock outputs from ml-service/data/mock_outputs.json by default
 ```
 
-Full rationale and requirements are in [`PRD.md`](./PRD.md).
+The real app flow is:
+
+1. Frontend calls backend endpoints
+2. Backend validates request data and checks cache
+3. Backend calls the ML service for forecasts/attribution/enforcement output
+4. If services fail, the app falls back to structured mock data instead of crashing
 
 ---
 
-## Tech Stack
+## Tech stack
 
-- **ML Service:** Python, FastAPI, pandas, scikit-learn, statsmodels/Prophet, XGBoost, geopandas
-- **Backend:** Node.js, Express, MongoDB (geospatial indexing), Redis (caching)
-- **Frontend:** React, Leaflet/Mapbox, Recharts/Chart.js
-- **LLM:** Used for citizen advisory text generation + translation (Hindi/English)
-- **Deployment (demo):** Docker Compose for local/demo environment
+- Frontend: React, Vite, React Router, Leaflet, Recharts, Axios
+- Backend: Node.js, Express, MongoDB, Redis, Axios, dotenv, node-cron
+- ML service: Python, FastAPI, pandas, numpy, scikit-learn, statsmodels, xgboost, geopandas
+- External integrations: OpenWeatherMap, Google GenAI/OpenAI, Telegram bot support
 
 ---
 
-## Folder Structure
+## Repository structure
 
-```
-airsense/
-├── ml-service/                 # Python FastAPI microservice
-│   ├── forecasting/
-│   │   ├── model.py            # SARIMA/XGBoost forecasting logic
-│   │   └── train.py
-│   ├── attribution/
-│   │   └── scoring_model.py    # Source attribution weighted scoring
-│   ├── enforcement/
-│   │   └── ranking.py
-│   ├── data/                   # cached/sample datasets
-│   ├── main.py                 # FastAPI app entrypoint
-│   └── requirements.txt
-│
-├── backend/                    # Node.js + Express
-│   ├── src/
-│   │   ├── routes/
-│   │   │   ├── forecast.routes.js
-│   │   │   ├── attribution.routes.js
-│   │   │   ├── enforcement.routes.js
-│   │   │   ├── advisory.routes.js
-│   │   │   └── cities.routes.js
-│   │   ├── models/             # MongoDB schemas (Station, Forecast, Zone, etc.)
-│   │   ├── services/           # ML-service client, LLM client, cache layer
-│   │   └── app.js
-│   ├── package.json
-│   └── .env.example
-│
-├── frontend/                   # React app
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── NavBar.jsx          # Top nav with theme toggle button
-│   │   │   ├── MapView.jsx
-│   │   │   ├── ForecastChart.jsx
-│   │   │   ├── EnforcementList.jsx
-│   │   │   ├── CityCompare.jsx
-│   │   │   └── AdvisoryChat.jsx
-│   │   ├── context/
-│   │   │   └── ThemeContext.jsx    # Light/Dark mode — React Context + localStorage
-│   │   ├── pages/
-│   │   └── App.jsx
-│   └── package.json
-│
+```text
+AirSense/
+├── AGENTS.md
+├── ARCHITECTURE.md
 ├── PRD.md
 ├── README.md
-└── docker-compose.yml
+├── docker-compose.yml
+├── backend/
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── src/
+│   │   ├── app.js
+│   │   ├── ingest.js
+│   │   ├── seed.js
+│   │   ├── data/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── services/
+│   └── .env.example (if present in your checkout)
+├── frontend/
+│   ├── package.json
+│   ├── vite.config.js
+│   ├── index.html
+│   ├── public/
+│   └── src/
+├── ml-service/
+│   ├── main.py
+│   ├── requirements.txt
+│   ├── weather_client.py
+│   ├── attribution/
+│   ├── data/
+│   ├── enforcement/
+│   ├── forecasting/
+│   └── models/
+└── ...
 ```
 
 ---
 
-## Setup Instructions
+## Running the app locally
 
 ### Prerequisites
+
 - Node.js 18+
 - Python 3.10+
-- MongoDB (local or Atlas)
-- Redis (local or cloud)
+- Optional: MongoDB and Redis for full local backend behavior
+- Optional: Docker Desktop for running the compose stack
 
-### 1. ML Microservice
+### 1) Start the ML service
+
 ```bash
 cd ml-service
-pip install -r requirements.txt --break-system-packages
-uvicorn main:app --reload --port 8001
+python -m venv .venv
+# Windows PowerShell
+.\.venv\Scripts\Activate.ps1
+# macOS/Linux
+# source .venv/bin/activate
+
+pip install -r requirements.txt
+uvicorn main:app --host 0.0.0.0 --port 8001 --reload
 ```
 
-### 2. Backend
+This serves the model endpoints at:
+
+- http://localhost:8001/health
+- http://localhost:8001/forecast/{ward_id}
+- http://localhost:8001/attribution/{zone_id}
+- http://localhost:8001/enforcement/priorities
+
+### 2) Start the backend
+
 ```bash
 cd backend
 npm install
-cp .env.example .env   # fill in values
-npm run dev            # starts on port 5000
+npm run dev
 ```
 
-### 3. Frontend
+The backend starts on port 5000 by default and exposes API routes under `/api`.
+
+If MongoDB or Redis is not available, the app still starts in a degraded mode and relies on mock data and fallback logic.
+
+### 3) Start the frontend
+
 ```bash
 cd frontend
 npm install
-npm run dev             # starts on port 3000
+npm run dev
 ```
 
-### 4. (Optional) Run everything via Docker Compose
+The frontend runs on the Vite default port, usually:
+
+- http://localhost:5173
+
+---
+
+## Docker setup
+
+The repo includes a Compose file for running the app stack together.
+
 ```bash
 docker compose up --build
 ```
 
+This starts:
+
+- ML service on port 8001
+- Backend on port 5000
+- Frontend on port 3000
+- MongoDB on port 27017
+- Redis on port 6379
+
 ---
 
-## Environment Variables
+## Backend API
 
-**backend/.env**
+These are the routes implemented by the backend.
+
+### Health and discovery
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/health` | Backend health check |
+| GET | `/api/zones` | List valid Delhi zones |
+| GET | `/api/cities` | List supported comparison cities |
+
+### Forecasting
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/forecast/:wardId` | Returns forecast data for a zone |
+| GET | `/api/forecast` | Lists available zone IDs |
+
+### Attribution
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/attribution/:zoneId` | Returns source attribution scores |
+| GET | `/api/attribution` | Lists available zone IDs |
+
+### Enforcement
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/enforcement/priorities?limit=10` | Returns ranked enforcement priorities |
+
+### City comparison
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/cities/compare?cities=delhi,mumbai` | Returns comparison data for selected cities |
+
+### Advisory
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/advisory/chat` | Sends a citizen query and receives language-aware AQI guidance |
+
+Example request body:
+
+```json
+{
+  "location": "anand-vihar",
+  "query": "Should I go outside today?",
+  "language": "en"
+}
 ```
+
+---
+
+## Frontend pages
+
+The React app currently contains:
+
+- Dashboard: map view, AQI stats, forecast and attribution panels, enforcement list
+- Multi-City page: comparison view for Delhi and additional city data
+- Advisory page: chat interface for public health guidance
+
+The app includes a theme toggle and uses a mock/safe fallback when the backend is unavailable.
+
+---
+
+## Environment variables
+
+The backend reads values from environment variables, typically via a local `.env` file.
+
+Example:
+
+```env
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/airsense
 REDIS_URL=redis://localhost:6379
 ML_SERVICE_URL=http://localhost:8001
+DEMO_MODE=false
 OPENWEATHER_API_KEY=your_key_here
 LLM_API_KEY=your_key_here
-
-# Citizen Alert Service (Telegram)
 TELEGRAM_BOT_TOKEN=your_bot_token_here
 TELEGRAM_ALERT_CHAT_ID=your_chat_id_here
 AQI_ALERT_THRESHOLD=300
@@ -193,85 +258,56 @@ ALERT_CRON_SCHEDULE=0 */6 * * *
 ALERTS_ENABLED=true
 ```
 
-**ml-service/.env**
+For Python, the ML service can use mock data by default through `USE_MOCK_DATA=true` in the environment.
+
+---
+
+## Demo behavior and fallback logic
+
+This project is built to keep working during demos even when dependencies are missing or upstream services fail.
+
+Important behavior:
+
+- Backend starts even if MongoDB is unavailable
+- ML service serves mock data from `ml-service/data/mock_outputs.json`
+- Backend falls back to cached or mock data when upstream calls fail
+- Advisory endpoint uses a generic message if the LLM is unavailable
+- Frontend uses the backend API directly and can render with fallback sample data
+
+---
+
+## Project notes
+
+- The app is centered on Delhi, but the architecture is intended to be city-agnostic at the service level.
+- The current implementation emphasizes a functional demo workflow more than production-grade persistence or real-time ingestion.
+- More detailed design rationale and requirements are in [ARCHITECTURE.md](ARCHITECTURE.md) and [PRD.md](PRD.md).
+
+---
+
+## Useful commands
+
+```bash
+# ML service
+cd ml-service
+uvicorn main:app --host 0.0.0.0 --port 8001 --reload
+
+# Backend
+cd backend
+npm install
+npm run dev
+
+# Frontend
+cd frontend
+npm install
+npm run dev
+
+# Full stack via Docker
+cd .
+docker compose up --build
 ```
-CPCB_DATA_PATH=./data/cpcb_sample.csv
-```
 
 ---
 
-## API Endpoints
+## Status
 
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/api/forecast/:wardId` | 24-72hr AQI forecast for a ward |
-| GET | `/api/attribution/:zoneId` | Source attribution breakdown for a zone |
-| GET | `/api/enforcement/priorities` | Ranked enforcement action list |
-| GET | `/api/cities/compare?cities=delhi,mumbai` | Multi-city historical comparison |
-| POST | `/api/advisory/chat` | Citizen advisory chatbot (body: `{ location, query, language }`) |
-
-Full request/response schemas to be documented in `backend/src/routes/*` as they're built (keep this section updated — don't let docs drift from code).
-
----
-
-## Feature Breakdown
-
-### 0. UI — Light / Dark Mode Toggle
-
-The frontend supports a **persistent Light/Dark theme** switchable from the navbar:
-
-- A **Sun icon** is shown in dark mode (click to switch to light). A **Moon icon** is shown in light mode (click to switch to dark).
-- Preference is saved to `localStorage` and restored on page reload.
-- On first visit, the theme defaults to the user's **OS/system preference** (`prefers-color-scheme`).
-- Implemented via a `ThemeContext` (React Context API) that toggles a `dark`/`light` class on `<html>`. All colours are driven by CSS custom properties (`--bg-primary`, `--text-primary`, etc.) defined per theme in `index.css` — no Tailwind required.
-- No additional npm packages were added; icons are inline SVGs.
-
----
-
-### 1. Source Attribution Engine
-Weighted scoring model combining AQI spike data + land-use + traffic + wind direction. Outputs per-zone confidence scores per source category. **Not a black box** — every score is traceable to its inputs, shown in UI as a breakdown.
-
-### 2. Hyperlocal AQI Forecasting
-Baseline: SARIMA/Prophet on historical CAAQMS data. Stretch: XGBoost with weather + calendar features. Spatial interpolation (IDW) used to approximate grid-level estimates between stations. **Always benchmarked against a persistence baseline** — this comparison is shown explicitly in the dashboard and deck.
-
-### 3. Enforcement Intelligence
-Rule-based ranking: severity × population exposure × attribution confidence. Reuses attribution engine output — no separate ML model needed.
-
-### 4. Multi-City Comparison
-City-agnostic backend design (city passed as parameter). Delhi shown with live pipeline; 1-2 additional cities shown via historical CPCB data only (not live forecasting) for hackathon scope.
-
-### 5. Citizen Advisory
-LLM-generated, location-aware advisory text in Hindi + English (web chat widget). Uses static POI data (hospitals/schools) to flag vulnerable-population zones for higher-urgency messaging.
-
-### 6. Automated Push Alerts (Citizen Engagement)
-An automated notification service built via the Telegram Bot API (`node-telegram-bot-api`) and scheduled via `node-cron`.
-- **Scheduled Checks:** Periodically triggers (e.g. every 6 hours in production, or 5 minutes in demo mode) to evaluate 24h-ahead hyperlocal AQI forecasts.
-- **Intelligent Thresholds:** Dispatches highly formatted, consolidated HTML alerts to citizens when forecasted AQI > 300 (Severe).
-- **Graceful Failure:** Automatically fails over, skips individual ward errors without halting, and features clean toggling without code removal.
-
----
-
-## Team
-
-| Name | Role |
-|---|---|
-| TBD | ML Engineer — Forecasting + Attribution models |
-| TBD | Backend Engineer — Data pipeline, APIs, DB |
-| TBD | Frontend Engineer — Dashboard, UI, demo assets |
-
----
-
-## Roadmap (Post-Hackathon)
-
-- True atmospheric dispersion modelling (replace IDW interpolation)
-- WhatsApp/IVR integration for citizen advisory (beyond web chat)
-- Live multi-city forecasting (not just historical comparison)
-- Integration with real enforcement source registries (replace sample dataset)
-- Additional regional languages (Tamil, Kannada, Bengali, etc.)
-- Production-grade auth + role-based access for municipal/PCB users
-
----
-
-## Notes for Judges / Reviewers
-
-Some data in this prototype is clearly marked as **sample/mock** where real-time access wasn't available within the hackathon timeline (e.g., construction permit registry, emission source database). All AQI, weather, and land-use data shown is from real public sources (CPCB, OpenWeatherMap, OSM). This is disclosed transparently rather than presented as fully live to avoid overstating capability.
+This repository currently contains a working prototype structure with mock-data-driven demo behavior, backend API wiring, ML endpoints, and React UI pages. It is ready for local development and demonstration, with the main next steps being real model tuning and production hardening.
