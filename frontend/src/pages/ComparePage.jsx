@@ -22,37 +22,25 @@ export default function ComparePage() {
   function toggleCity(name) {
     setSelectedCities(prev =>
       prev.includes(name)
-        ? prev.length > 1 ? prev.filter(c => c !== name) : prev   // keep at least one
+        ? prev.length > 1 ? prev.filter(c => c !== name) : prev
         : [...prev, name]
     );
   }
 
   return (
     <div>
-      {/* Page header */}
-      <div style={{ marginBottom: '1.25rem' }}>
-        <h1 style={{ fontSize: '1.3rem', fontWeight: 800, letterSpacing: '-0.01em' }}>
-          Multi-City AQI Comparison
-        </h1>
-        <p style={{ fontSize: '0.8rem', color: '#7b91b0', marginTop: '0.2rem' }}>
+      {/* ── Page header ─────────────────────────────────────── */}
+      <div className="page-header">
+        <span className="page-header-badge">🌆 Multi-City</span>
+        <h1>Multi-City AQI Comparison</h1>
+        <p>
           Historical AQI trends across Indian cities — Delhi shown with live pipeline, others via CPCB archives.
         </p>
       </div>
 
-      {/* Disclaimer */}
-      <div style={{
-        background: 'rgba(245,158,11,0.07)',
-        border: '1px solid rgba(245,158,11,0.2)',
-        borderRadius: 10,
-        padding: '0.75rem 1rem',
-        fontSize: '0.78rem',
-        color: '#f59e0b',
-        marginBottom: '1.25rem',
-        display: 'flex',
-        gap: '0.6rem',
-        alignItems: 'flex-start',
-      }}>
-        <span style={{ flexShrink: 0 }}>📋</span>
+      {/* ── Data transparency disclaimer ─────────────────────── */}
+      <div className="info-box info-box-amber fade-slide-up" style={{ marginBottom: '1.25rem' }}>
+        <span style={{ flexShrink: 0, fontSize: '1rem' }}>📋</span>
         <span>
           <strong>Data Transparency:</strong> Delhi uses our live AQI ingestion pipeline with real-time CAAQMS data.
           Mumbai and Kolkata use historical CPCB archives (not live). Dashed chart lines = historical data. We do not
@@ -60,17 +48,15 @@ export default function ComparePage() {
         </span>
       </div>
 
-      {/* Main card */}
-      <div className="card">
+      {/* ── Main chart card ──────────────────────────────────── */}
+      <div className="card fade-slide-up fade-slide-up-d1">
         <div className="section-header">
           <div>
             <div className="card-title">
-              <span className="card-title-icon">🌆</span>
+              <span className="card-title-icon">📈</span>
               Historical AQI Trends
             </div>
-            <div className="section-sub">
-              Toggle cities using the buttons below the chart
-            </div>
+            <div className="section-sub">Toggle cities using the buttons below the chart</div>
           </div>
         </div>
 
@@ -83,19 +69,14 @@ export default function ComparePage() {
         />
       </div>
 
-      {/* Info footer */}
-      <div style={{
-        marginTop: '1rem',
-        padding: '0.75rem 1rem',
-        background: 'rgba(59,130,246,0.05)',
-        border: '1px solid rgba(59,130,246,0.15)',
-        borderRadius: 10,
-        fontSize: '0.75rem',
-        color: '#7b91b0',
-      }}>
-        💡 <strong>Scalability note:</strong> AirSense's backend is city-agnostic — any city with CAAQMS station data
-        can be onboarded. The Delhi deployment is the deep integration; other cities are demonstration of the
-        multi-city architecture.
+      {/* ── Scalability note ─────────────────────────────────── */}
+      <div className="info-box info-box-blue fade-slide-up fade-slide-up-d2" style={{ marginTop: '1rem' }}>
+        <span style={{ flexShrink: 0 }}>💡</span>
+        <span>
+          <strong>Scalability note:</strong> AirSense's backend is city-agnostic — any city with CAAQMS station data
+          can be onboarded. The Delhi deployment is the deep integration; other cities are a demonstration of the
+          multi-city architecture.
+        </span>
       </div>
     </div>
   );

@@ -79,12 +79,9 @@ export default function Dashboard() {
 
   // Enrich zones with attribution dominant source for map coloring
   const enrichedZones = zones.map(z => {
-    // Pull from enforcement priorities for baseline AQI/source data
     const ep = enforcement?.priorities?.find(p => p.zoneId === z.zoneId);
     const trafficData = traffic.find(t => t.zoneId === z.zoneId);
     const liveReading = liveReadings.find(r => r.zoneId === z.zoneId);
-    // If this is the selected zone AND fresh attribution data has loaded, prefer that
-    // (attribution is fetched per-zone on click — much fresher than enforcement which runs all zones at startup)
     const freshAttr = (z.zoneId === selectedZone && attribution) ? attribution : null;
     return {
       ...z,
@@ -97,24 +94,23 @@ export default function Dashboard() {
   });
 
   const selectedZoneMeta = enrichedZones.find(z => z.zoneId === selectedZone);
-  // Prefer attribution's live AQI (fetched per-zone) over enforcement's (which is slow — all zones)
   const currentAQI = attribution?.currentAQI || selectedZoneMeta?.currentAQI;
   const aqiColor   = getAQIColor(currentAQI);
 
   return (
     <div>
-      {/* Page header */}
-      <div style={{ marginBottom: '1rem' }}>
-        <h1 style={{ fontSize: '1.3rem', fontWeight: 800, letterSpacing: '-0.01em' }}>
-          Delhi Air Quality Dashboard
-        </h1>
-        <p style={{ fontSize: '0.8rem', color: '#7b91b0', marginTop: '0.2rem' }}>
+      {/* ── Page header ─────────────────────────────────────── */}
+      <div className="page-header">
+        <span className="page-header-badge">🛰️ Live Dashboard</span>
+        <h1>Delhi Air Quality Dashboard</h1>
+        <p>
           Live OpenWeather AQI + weather · TomTom traffic enrichment · CPCB historical baseline
         </p>
       </div>
 
-      {/* Stats row */}
-      <div className="stat-row" style={{ marginBottom: '1rem' }}>
+      {/* ── Stats row ───────────────────────────────────────── */}
+      <div className="stat-row fade-slide-up fade-slide-up-d1" style={{ marginBottom: '1.1rem' }}>
+        {/* Selected Zone */}
         <div className="stat-tile">
           <div className="stat-label">Selected Zone</div>
           <div className="stat-value" style={{ fontSize: '1rem', fontWeight: 700 }}>
@@ -122,7 +118,12 @@ export default function Dashboard() {
           </div>
           <div className="stat-sub">{selectedZoneMeta?.landUseType || '—'}</div>
         </div>
-        <div className="stat-tile">
+
+        {/* Current AQI — with glow border matching AQI color */}
+        <div
+          className="stat-tile stat-tile-aqi"
+          style={{ borderColor: currentAQI ? `${aqiColor}33` : undefined }}
+        >
           <div className="stat-label">Current AQI</div>
           <div className="stat-value" style={{ color: aqiColor }}>
             {currentAQI || '—'}
@@ -131,9 +132,11 @@ export default function Dashboard() {
             {currentAQI ? getAQICategory(currentAQI) : 'Loading…'}
           </div>
         </div>
+
+        {/* Dominant Source */}
         <div className="stat-tile">
           <div className="stat-label">Dominant Source</div>
-          <div className="stat-value" style={{ fontSize: '0.95rem', textTransform: 'capitalize' }}>
+          <div className="stat-value" style={{ fontSize: '0.92rem', textTransform: 'capitalize' }}>
             {attribution?.dominantSource || selectedZoneMeta?.dominantSource || '—'}
           </div>
           <div className="stat-sub">
@@ -143,15 +146,16 @@ export default function Dashboard() {
             })()}
           </div>
         </div>
-        {/* RMSE Stat Tile — Technical Excellence (20%) — always visible */}
+
+        {/* Forecast RMSE */}
         <div className="stat-tile" title="SARIMA model vs naive persistence baseline — key judging metric">
           <div className="stat-label">Forecast RMSE</div>
-          <div className="stat-value" style={{ fontSize: '1rem' }}>
+          <div className="stat-value" style={{ fontSize: '0.97rem' }}>
             <span style={{ color: '#22c55e' }}>
               {forecast?.baselineComparison?.modelRMSE ?? '9.0'}
             </span>
-            <span style={{ color: '#4a5d78', fontSize: '0.75rem', fontWeight: 400 }}> vs </span>
-            <span style={{ color: '#ef4444' }}>
+            <span style={{ color: 'var(--text-muted)', fontSize: '0.72rem', fontWeight: 400 }}> vs </span>
+            <span style={{ color: 'var(--accent-red)' }}>
               {forecast?.baselineComparison?.persistenceRMSE ?? '12.0'}
             </span>
           </div>
@@ -159,14 +163,18 @@ export default function Dashboard() {
             ✅ {forecast?.baselineComparison?.improvementPercent ?? '25'}% better than baseline
           </div>
         </div>
+
+        {/* Zones Monitored */}
         <div className="stat-tile">
           <div className="stat-label">Zones Monitored</div>
           <div className="stat-value">{zones.length}</div>
           <div className="stat-sub">Delhi zones tracked</div>
         </div>
+
+        {/* Traffic Feed */}
         <div className="stat-tile">
           <div className="stat-label">Traffic Feed</div>
-          <div className="stat-value" style={{ fontSize: '0.95rem' }}>
+          <div className="stat-value" style={{ fontSize: '0.92rem' }}>
             {traffic.some(t => t.isLive) ? 'TomTom Live' : 'Fallback'}
           </div>
           <div className="stat-sub">
@@ -175,11 +183,11 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Main grid */}
-      <div className="dashboard-grid">
+      {/* ── Main grid ───────────────────────────────────────── */}
+      <div className="dashboard-grid fade-slide-up fade-slide-up-d2">
         {/* LEFT: Map + Enforcement */}
         <div className="dashboard-left">
-          {/* Map */}
+          {/* Map card */}
           <div className="card" style={{ padding: '1rem' }}>
             <div className="card-title">
               <span className="card-title-icon">🗺️</span>
@@ -193,7 +201,7 @@ export default function Dashboard() {
             />
           </div>
 
-          {/* Enforcement list */}
+          {/* Enforcement list card */}
           <div className="card">
             <div className="section-header">
               <div>
@@ -207,11 +215,11 @@ export default function Dashboard() {
               </div>
               <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', alignItems: 'center' }}>
                 {enforcement?.dataSource === 'real-model' ? (
-                  <span className="tag tag-green" style={{ fontSize: '0.65rem' }}>✅ Live model</span>
+                  <span className="tag tag-green" style={{ fontSize: '0.64rem' }}>✅ Live model</span>
                 ) : enforcement?.dataSource ? (
-                  <span className="tag tag-amber" style={{ fontSize: '0.65rem' }}>📋 Sample data</span>
+                  <span className="tag tag-amber" style={{ fontSize: '0.64rem' }}>📋 Sample data</span>
                 ) : null}
-                <span className="tag tag-muted" style={{ fontSize: '0.65rem' }}>Click card → zoom map</span>
+                <span className="tag tag-muted" style={{ fontSize: '0.64rem' }}>Click card → zoom map</span>
               </div>
             </div>
             <EnforcementList
@@ -225,19 +233,19 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* RIGHT: Forecast + Attribution */}
+        {/* RIGHT: Forecast + Attribution + Zone Selector */}
         <div className="dashboard-right">
           {/* Tab switcher */}
-          <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '0.5rem' }}>
+          <div style={{ display: 'flex', gap: '0.4rem' }}>
             {[
-              { id: 'forecast', label: '📈 Forecast' },
+              { id: 'forecast',    label: '📈 Forecast' },
               { id: 'attribution', label: '🏭 Attribution' },
             ].map(t => (
               <button
                 key={t.id}
                 className={`btn btn-ghost${sideTab === t.id ? ' active' : ''}`}
                 onClick={() => setSideTab(t.id)}
-                style={{ fontSize: '0.82rem', padding: '0.4rem 0.9rem' }}
+                style={{ fontSize: '0.82rem', padding: '0.42rem 0.95rem' }}
               >
                 {t.label}
               </button>
@@ -245,7 +253,7 @@ export default function Dashboard() {
             <button
               className="btn btn-ghost"
               onClick={() => loadZoneData(selectedZone)}
-              style={{ marginLeft: 'auto', fontSize: '0.78rem', padding: '0.4rem 0.75rem' }}
+              style={{ marginLeft: 'auto', fontSize: '0.78rem', padding: '0.42rem 0.8rem' }}
               title="Refresh zone data"
             >
               ↻ Refresh
@@ -263,16 +271,13 @@ export default function Dashboard() {
                 error={fError}
               />
               {forecast?.dataSource === 'real-model' && (
-                <div style={{
-                  marginTop: '0.6rem',
-                  padding: '0.5rem 0.75rem',
-                  background: 'rgba(59,130,246,0.05)',
-                  border: '1px solid rgba(59,130,246,0.12)',
-                  borderRadius: 8,
-                  fontSize: '0.7rem',
-                  color: '#4a5d78',
-                }}>
-                  ℹ️ <strong style={{ color: '#7b91b0' }}>Model note:</strong> SARIMA trained on CPCB historical data (winter 2024). Forecasts reflect seasonal patterns. Current AQI is lower due to monsoon season — this is expected behaviour.
+                <div className="info-box info-box-blue" style={{ marginTop: '0.75rem' }}>
+                  <span>ℹ️</span>
+                  <span>
+                    <strong style={{ color: 'var(--text-secondary)' }}>Model note:</strong>{' '}
+                    SARIMA trained on CPCB historical data (winter 2024). Forecasts reflect seasonal patterns.
+                    Current AQI is lower due to monsoon season — this is expected behaviour.
+                  </span>
                 </div>
               )}
             </div>
@@ -299,7 +304,7 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Zone selector shortcut */}
+          {/* Zone selector */}
           <div className="card">
             <div className="card-title">
               <span className="card-title-icon">📍</span>
@@ -320,14 +325,11 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Data Disclosure Footer */}
-      <div style={{ marginTop: '2rem', paddingTop: '1rem', borderTop: '1px solid var(--border)', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.75rem' }}>
-        <p style={{ marginBottom: '0.2rem' }}>
-          <strong style={{ color: 'var(--text-secondary)' }}>Data Disclosure:</strong> Live PM2.5 and weather data is fetched in real-time from OpenWeatherMap APIs.
-        </p>
-        <p>
-          CPCB is currently used as historical/sample data. Forecasts use historical CPCB model artifacts, while live attribution is enriched with OpenWeather and TomTom when keys are configured.
-        </p>
+      {/* ── Data Disclosure Footer ───────────────────────────── */}
+      <div className="data-footer">
+        <strong>Data Disclosure:</strong> Live PM2.5 and weather data is fetched in real-time from OpenWeatherMap APIs.
+        CPCB is currently used as historical/sample data. Forecasts use historical CPCB model artifacts, while live attribution
+        is enriched with OpenWeather and TomTom when keys are configured.
       </div>
     </div>
   );

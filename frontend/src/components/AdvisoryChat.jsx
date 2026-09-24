@@ -7,7 +7,7 @@ const RISK_STYLES = {
   moderate: { bg: 'rgba(250,204,21,0.08)',  border: 'rgba(250,204,21,0.25)',  color: '#facc15', label: 'MODERATE' },
   high:     { bg: 'rgba(249,115,22,0.10)',  border: 'rgba(249,115,22,0.3)',   color: '#f97316', label: 'HIGH RISK' },
   'very-high': { bg: 'rgba(239,68,68,0.10)', border: 'rgba(239,68,68,0.3)', color: '#ef4444', label: 'VERY HIGH' },
-  severe:   { bg: 'rgba(124,58,237,0.10)',  border: 'rgba(124,58,237,0.3)',  color: '#7c3aed', label: 'SEVERE' },
+  severe:   { bg: 'rgba(124,58,237,0.10)',  border: 'rgba(124,58,237,0.3)',  color: '#8b5cf6', label: 'SEVERE' },
 };
 
 const SUGGESTION_CHIPS = {
@@ -36,6 +36,16 @@ const FALLBACK_REPLY = {
   hi: (loc) => `क्षमा करें, सेवा अभी उपलब्ध नहीं है। सामान्य सुझाव: यदि ${loc.replace(/-/g, ' ')} में AQI 200 से अधिक है, तो बाहर न जाएं और अगर जाएं तो N95 मास्क पहनें।`,
   kn: (loc) => `ಕ್ಷಮಿಸಿ, ಸೇವೆ ಗೈ ಲಭ್ಯವಿಲ್ಲ. ಸಾಮಾನ್ಯ ಸಲಹೆ: ${loc.replace(/-/g, ' ')} ನಲ್ಲಿ AQI 200 ಕ್ಕಿಂತ ಹೆಚ್ಚಿದ್ದರೆ, ಹೋಗಲೇ ಬೇಡ, N95 ಮಾಸ್ಕ್ ಧರಿಸಿ.`,
 };
+
+/* ── Send icon SVG ─────────────────────────────────────────── */
+function SendIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="22" y1="2" x2="11" y2="13"/>
+      <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+    </svg>
+  );
+}
 
 export default function AdvisoryChat() {
   const [messages, setMessages] = useState([
@@ -87,11 +97,25 @@ export default function AdvisoryChat() {
     }
   }
 
+  function handleKeyDown(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+
+  const placeholders = {
+    en: 'Ask about air quality, health risks, precautions…',
+    hi: 'अपना सवाल यहाँ लिखें…',
+    kn: 'ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ…',
+  };
+
   return (
     <div className="chat-wrap">
-      {/* Controls row */}
-      <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.75rem', alignItems: 'center' }}>
+      {/* ── Controls row ──────────────────────────────────────── */}
+      <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap', marginBottom: '0.75rem', alignItems: 'center' }}>
         <select
+          id="advisory-zone-select"
           className="form-select"
           value={location}
           onChange={e => setLocation(e.target.value)}
@@ -102,55 +126,64 @@ export default function AdvisoryChat() {
           ))}
         </select>
 
-        <div style={{ display: 'flex', gap: '0.4rem' }}>
+        {/* Language pills */}
+        <div style={{ display: 'flex', gap: '0.35rem' }}>
           {[['en', '🇬🇧 EN'], ['hi', '🇮🇳 HI'], ['kn', '🇮🇳 KN']].map(([code, label]) => (
             <button
               key={code}
               className={`btn btn-ghost${language === code ? ' active' : ''}`}
               onClick={() => setLanguage(code)}
-              style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem' }}
+              style={{ fontSize: '0.78rem', padding: '0.38rem 0.75rem' }}
             >
               {label}
             </button>
           ))}
         </div>
 
+        {/* Risk level badge */}
         {riskLevel && RISK_STYLES[riskLevel] && (
           <span style={{
             background: RISK_STYLES[riskLevel].bg,
             border: `1px solid ${RISK_STYLES[riskLevel].border}`,
             color: RISK_STYLES[riskLevel].color,
-            padding: '0.25rem 0.7rem',
+            padding: '0.25rem 0.75rem',
             borderRadius: '20px',
-            fontSize: '0.7rem',
+            fontSize: '0.69rem',
             fontWeight: 700,
-            letterSpacing: '0.05em',
+            letterSpacing: '0.06em',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.3rem',
           }}>
-            ● {RISK_STYLES[riskLevel].label}
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: RISK_STYLES[riskLevel].color, display: 'inline-block' }} />
+            {RISK_STYLES[riskLevel].label}
           </span>
         )}
       </div>
 
-      {/* Suggestion chips */}
-      <div className="chip-row" style={{ marginBottom: '0.6rem' }}>
+      {/* ── Suggestion chips ───────────────────────────────────── */}
+      <div className="chip-row" style={{ marginBottom: '0.7rem' }}>
         {(SUGGESTION_CHIPS[language] || SUGGESTION_CHIPS.en).map(q => (
           <button key={q} className="chip" onClick={() => sendMessage(q)}>{q}</button>
         ))}
       </div>
 
-      {/* Messages */}
+      {/* ── Messages ───────────────────────────────────────────── */}
       <div className="chat-messages">
         {messages.map((msg, i) => {
           const riskStyle = msg.riskLevel ? RISK_STYLES[msg.riskLevel] : null;
+          const isUser = msg.role === 'user';
           return (
-            <div key={i} style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
-              {msg.role === 'assistant' && (
-                <div style={{ fontSize: '1.1rem', marginRight: '0.4rem', alignSelf: 'flex-end', paddingBottom: '2px' }}>
-                  🌿
-                </div>
+            <div
+              key={i}
+              style={{ display: 'flex', justifyContent: isUser ? 'flex-end' : 'flex-start', alignItems: 'flex-end', gap: '0.5rem' }}
+            >
+              {/* Bot avatar */}
+              {!isUser && (
+                <div className="msg-avatar" title="AirSense Advisory AI">🌿</div>
               )}
               <div
-                className={`msg-bubble ${msg.role === 'user' ? 'msg-user' : 'msg-bot'} ${msg.isError ? 'msg-error' : ''}`}
+                className={`msg-bubble ${isUser ? 'msg-user' : 'msg-bot'} ${msg.isError ? 'msg-error' : ''}`}
                 style={riskStyle ? { borderColor: riskStyle.border } : undefined}
               >
                 {msg.text}
@@ -164,9 +197,10 @@ export default function AdvisoryChat() {
           );
         })}
 
+        {/* Typing indicator */}
         {loading && (
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '0.4rem' }}>
-            <span style={{ fontSize: '1.1rem' }}>🌿</span>
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '0.5rem' }}>
+            <div className="msg-avatar">🌿</div>
             <div className="typing-dots">
               <span /><span /><span />
             </div>
@@ -175,24 +209,33 @@ export default function AdvisoryChat() {
         <div ref={bottomRef} />
       </div>
 
-      {/* Input row */}
+      {/* ── Input row ──────────────────────────────────────────── */}
       <div className="chat-input-row">
         <input
           ref={inputRef}
+          id="advisory-chat-input"
           className="chat-input"
           value={input}
           onChange={e => setInput(e.target.value)}
-          onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendMessage()}
-          placeholder={language === 'hi' ? 'अपना सवाल यहाँ लिखें…' : language === 'kn' ? 'ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ…' : 'Ask about air quality, health risks, precautions…'}
+          onKeyDown={handleKeyDown}
+          placeholder={placeholders[language]}
           disabled={loading}
+          autoComplete="off"
         />
         <button
-          className="btn btn-primary"
+          id="advisory-send-btn"
+          className="btn-send"
           onClick={() => sendMessage()}
           disabled={loading || !input.trim()}
-          style={{ flexShrink: 0 }}
+          title="Send message"
         >
-          {loading ? '…' : 'Send ↑'}
+          {loading ? (
+            <span className="spinner" style={{ width: 14, height: 14, borderWidth: 2 }} />
+          ) : (
+            <>
+              Send <SendIcon />
+            </>
+          )}
         </button>
       </div>
     </div>

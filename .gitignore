@@ -36,7 +36,7 @@ ENV/
 Lib/
 Scripts/
 pyvenv.cfg
-
+backend\.env
 # Jupyter
 .ipynb_checkpoints/
 *.ipynb

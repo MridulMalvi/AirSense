@@ -1,26 +1,29 @@
-﻿# AirSense — AI-Powered Urban Air Quality Intelligence
+# AirSense — Urban Air Quality Intelligence Platform
 
-> Built for **ET AI Hackathon 2026** — Problem Statement #5 (Smart Cities / Environmental Intelligence)
+> **Python | SARIMA | FastAPI | Node.js | React | MongoDB | Docker**
 
-AirSense fuses CAAQMS monitoring data, live weather, traffic signals, land-use, and population layers into a single intelligence platform that **predicts** AQI hyperlocally, **attributes** pollution to its source, **ranks** enforcement priorities, **advises** citizens — and lets officials simulate what-if interventions — moving city administration from reactive monitoring to proactive action.
+**AirSense** is a full-stack urban air quality intelligence and decision-support platform that transforms raw atmospheric and sensor data into actionable policy interventions and citizen health advisories.
 
-Demo city: **Delhi** (11 zones). Architecture is city-agnostic by design.
+- **Full-Stack Air Quality Decision Platform:** Ingests CPCB sensor feeds, real-time weather (OpenWeatherMap), and traffic congestion data (TomTom) to forecast hyperlocal AQI (24–72h) and pinpoint dominant pollution sources across urban wards.
+- **Python ML Microservice:** Powered by **seasonal SARIMA** time-series forecasting benchmarked against naive persistence baselines, combined with an **explainable source-attribution scoring engine** and **IDW spatial interpolation**.
+- **Interactive React Dashboard & LLM Advisory:** Features interactive Leaflet geospatial heatmaps, multi-city comparisons, a policy "What-If" intervention simulator, and an LLM-powered bilingual health advisory chat.
+- **Resilient & Containerized Architecture:** Built with a decoupled microservice pattern (FastAPI + Node.js/Express + React), Redis caching, offline fallback modes, and containerized with Docker Compose.
 
 ---
 
 ## Table of Contents
 
-1. [Features](#features)
-2. [Architecture](#architecture)
-3. [Tech Stack](#tech-stack)
-4. [Folder Structure](#folder-structure)
-5. [Setup Instructions](#setup-instructions)
-6. [Environment Variables](#environment-variables)
-7. [API Endpoints](#api-endpoints)
-8. [Feature Deep-Dive](#feature-deep-dive)
-9. [Data Sources & Honesty Disclaimer](#data-sources--honesty-disclaimer)
-10. [Demo Mode (Offline / Judging Fallback)](#demo-mode-offline--judging-fallback)
-11. [Roadmap (Post-Hackathon)](#roadmap-post-hackathon)
+1. [Key Highlights](#key-highlights)
+2. [Features](#features)
+3. [Architecture](#architecture)
+4. [Tech Stack](#tech-stack)
+5. [Folder Structure](#folder-structure)
+6. [Setup Instructions](#setup-instructions)
+7. [Environment Variables](#environment-variables)
+8. [API Endpoints](#api-endpoints)
+9. [Feature Deep-Dive](#feature-deep-dive)
+10. [Data Sources & Resilience](#data-sources--resilience)
+11. [Roadmap](#roadmap)
 
 ---
 
@@ -96,8 +99,8 @@ Full rationale and requirements: [`PRD.md`](./PRD.md) | Architecture detail: [`A
 ## Folder Structure
 
 ```
-gen ai hackathon/
-+-- AGENTS.md                     Build rules & pitfalls (read before coding)
+AirSense/
++-- AGENTS.md                     Build rules & pitfalls
 +-- PRD.md                        Full product spec
 +-- ARCHITECTURE.md               System architecture diagram
 +-- 00-shared-foundation.md       Locked API contract

@@ -3,6 +3,21 @@ import { FALLBACK_ZONES } from '../constants/zones';
 import { fetchAlertSummary, sendTestAlert, subscribeToAlerts } from '../services/api';
 import { getAlertPushToken } from '../services/firebase-messaging';
 
+/* ── Custom Checkbox component ─────────────────────────────── */
+function Checkbox({ checked, onChange, id }) {
+  return (
+    <label className="check-label" htmlFor={id}>
+      <input
+        id={id}
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+      />
+      <span className="check-box" />
+    </label>
+  );
+}
+
 export default function AlertsPage() {
   const [zoneId, setZoneId] = useState('anand-vihar');
   const [language, setLanguage] = useState('en');
@@ -18,9 +33,7 @@ export default function AlertsPage() {
       .catch(() => setSummary(null));
   }
 
-  useEffect(() => {
-    loadSummary();
-  }, []);
+  useEffect(() => { loadSummary(); }, []);
 
   async function subscribe(event) {
     event.preventDefault();
@@ -52,7 +65,7 @@ export default function AlertsPage() {
     setStatus('');
     setError('');
     try {
-      const response = await sendTestAlert({ zoneId, aqi: 350 }); // force Severe AQI so threshold filter always passes
+      const response = await sendTestAlert({ zoneId, aqi: 350 });
       setStatus(`Test alert processed for ${response.result?.sentOrLogged ?? response.sentOrLogged ?? 0} subscriber(s).`);
       loadSummary();
     } catch (err) {
@@ -62,98 +75,189 @@ export default function AlertsPage() {
     }
   }
 
+  const THRESHOLDS_CONFIG = [
+    { key: 'moderate', label: 'Moderate and above', sub: 'AQI 100+', color: 'var(--aqi-moderate)' },
+    { key: 'poor',     label: 'Poor and above',     sub: 'AQI 200+', color: 'var(--aqi-poor)' },
+    { key: 'severe',   label: 'Severe',             sub: 'AQI 300+', color: 'var(--aqi-severe)' },
+  ];
+
   return (
     <div>
-      <div style={{ marginBottom: '1.25rem' }}>
-        <h1 style={{ fontSize: '1.3rem', fontWeight: 800 }}>AQI Push Alerts</h1>
-        <p style={{ fontSize: '0.8rem', color: '#7b91b0', marginTop: '0.2rem' }}>
+      {/* ── Page header ─────────────────────────────────────── */}
+      <div className="page-header">
+        <span className="page-header-badge">🔔 Push Notifications</span>
+        <h1>AQI Push Alerts</h1>
+        <p>
           Free alert path using Firebase web push, with in-app logging fallback when Firebase is not configured.
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(280px, 0.8fr)', gap: '1rem' }}>
-        <form className="card" onSubmit={subscribe}>
-          <div className="card-title">Subscribe</div>
-          <div style={{ display: 'grid', gap: '0.85rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(280px,0.8fr)', gap: '1.1rem' }}>
+        {/* ── Subscribe form ─────────────────────────────────── */}
+        <form className="card fade-slide-up" onSubmit={subscribe}>
+          <div className="card-title">🔔 Subscribe to Alerts</div>
+          <div style={{ display: 'grid', gap: '1rem' }}>
+
+            {/* Zone */}
             <label>
-              <div className="stat-label">Zone</div>
-              <select className="form-select" value={zoneId} onChange={e => setZoneId(e.target.value)}>
+              <div className="form-label">Zone</div>
+              <select
+                id="alert-zone-select"
+                className="form-select"
+                value={zoneId}
+                onChange={e => setZoneId(e.target.value)}
+              >
                 {FALLBACK_ZONES.map(zone => (
                   <option key={zone.zoneId} value={zone.zoneId}>{zone.name}</option>
                 ))}
               </select>
             </label>
 
+            {/* Language */}
             <label>
-              <div className="stat-label">Language</div>
-              <select className="form-select" value={language} onChange={e => setLanguage(e.target.value)}>
-                <option value="en">English</option>
-                <option value="hi">Hindi</option>
-                <option value="kn">Kannada</option>
+              <div className="form-label">Notification Language</div>
+              <select
+                id="alert-language-select"
+                className="form-select"
+                value={language}
+                onChange={e => setLanguage(e.target.value)}
+              >
+                <option value="en">🇬🇧 English</option>
+                <option value="hi">🇮🇳 Hindi</option>
+                <option value="kn">🇮🇳 Kannada</option>
               </select>
             </label>
 
+            {/* Alert Thresholds */}
             <div>
-              <div className="stat-label">Alert Thresholds</div>
-              {[
-                ['moderate', 'Moderate and above (AQI 100+)'],
-                ['poor', 'Poor and above (AQI 200+)'],
-                ['severe', 'Severe (AQI 300+)'],
-              ].map(([key, label]) => (
-                <label key={key} style={{ display: 'block', fontSize: '0.82rem', color: '#7b91b0', margin: '0.35rem 0' }}>
-                  <input
-                    type="checkbox"
-                    checked={thresholds[key]}
-                    onChange={e => setThresholds(prev => ({ ...prev, [key]: e.target.checked }))}
-                    style={{ marginRight: '0.45rem' }}
-                  />
-                  {label}
-                </label>
-              ))}
+              <div className="form-label" style={{ marginBottom: '0.65rem' }}>Alert Thresholds</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+                {THRESHOLDS_CONFIG.map(({ key, label, sub, color }) => (
+                  <div
+                    key={key}
+                    onClick={() => setThresholds(prev => ({ ...prev, [key]: !prev[key] }))}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      padding: '0.65rem 0.85rem',
+                      borderRadius: 'var(--radius-md)',
+                      border: `1px solid ${thresholds[key] ? `${color}44` : 'var(--border)'}`,
+                      background: thresholds[key] ? `${color}0d` : 'rgba(255,255,255,0.02)',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      id={`threshold-${key}`}
+                      checked={thresholds[key]}
+                      onChange={e => setThresholds(prev => ({ ...prev, [key]: e.target.checked }))}
+                      style={{ display: 'none' }}
+                    />
+                    {/* Custom checkbox visual */}
+                    <span style={{
+                      width: 18, height: 18,
+                      borderRadius: 5,
+                      border: `1.5px solid ${thresholds[key] ? color : 'var(--border-hover)'}`,
+                      background: thresholds[key] ? color : 'var(--bg-input)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      flexShrink: 0,
+                      transition: 'all 0.2s',
+                    }}>
+                      {thresholds[key] && (
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                          <path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      )}
+                    </span>
+                    <div>
+                      <div style={{ fontSize: '0.83rem', fontWeight: 600, color: thresholds[key] ? color : 'var(--text-primary)' }}>
+                        {label}
+                      </div>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{sub}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div style={{ background: 'rgba(59,130,246,0.06)', border: '1px solid rgba(59,130,246,0.2)', borderRadius: 10, padding: '0.75rem', fontSize: '0.78rem', color: '#7b91b0' }}>
-              On localhost, browser push can work after notification permission. In deployed environments, HTTPS and Firebase web credentials are required.
+            {/* Info note */}
+            <div className="info-box info-box-blue">
+              <span>🔒</span>
+              <span>
+                On localhost, browser push can work after notification permission. In deployed environments,
+                HTTPS and Firebase web credentials are required.
+              </span>
             </div>
 
+            {/* Feedback */}
             {error && <div className="error-msg">{error}</div>}
-            {status && <div className="tag tag-green" style={{ width: 'fit-content' }}>{status}</div>}
+            {status && <div className="status-success">{status}</div>}
 
+            {/* Actions */}
             <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
-              <button className="btn btn-primary" type="submit" disabled={loading}>
-                {loading ? 'Working...' : 'Subscribe'}
+              <button
+                id="alert-subscribe-btn"
+                className="btn btn-primary"
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <span className="spinner" style={{ width: 14, height: 14, borderWidth: 2 }} />
+                    Working…
+                  </>
+                ) : '🔔 Subscribe'}
               </button>
-              <button className="btn btn-ghost" type="button" onClick={testAlert} disabled={loading}>
+              <button
+                id="alert-test-btn"
+                className="btn btn-ghost"
+                type="button"
+                onClick={testAlert}
+                disabled={loading}
+              >
                 Send Test Alert
               </button>
             </div>
           </div>
         </form>
 
-        <div className="card">
-          <div className="card-title">Alert Activity</div>
-          <div className="stat-row" style={{ marginBottom: '1rem' }}>
+        {/* ── Alert Activity panel ────────────────────────────── */}
+        <div className="card fade-slide-up fade-slide-up-d1">
+          <div className="card-title">📊 Alert Activity</div>
+          <div className="stat-row" style={{ marginBottom: '1.1rem' }}>
             <div className="stat-tile">
               <div className="stat-label">Subscribers</div>
               <div className="stat-value">{summary?.activeSubscribers ?? 0}</div>
+              <div className="stat-sub">active</div>
             </div>
             <div className="stat-tile">
               <div className="stat-label">Recent Logs</div>
               <div className="stat-value">{summary?.recentLogs?.length ?? 0}</div>
+              <div className="stat-sub">logged alerts</div>
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+          {/* Log items */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             {(summary?.recentLogs || []).slice(0, 8).map(log => (
-              <div key={log._id} style={{ borderBottom: '1px solid var(--border)', paddingBottom: '0.55rem' }}>
-                <div style={{ fontSize: '0.82rem', fontWeight: 700 }}>{log.title}</div>
-                <div style={{ fontSize: '0.72rem', color: '#7b91b0' }}>
-                  {log.zoneName || log.zoneId} · AQI {log.aqi} · {log.status}
+              <div key={log._id} className="alert-log-item">
+                <div className="alert-log-title">{log.title}</div>
+                <div className="alert-log-meta">
+                  <span>📍 {log.zoneName || log.zoneId}</span>
+                  <span>AQI {log.aqi}</span>
+                  <span className={`tag ${log.status === 'sent' ? 'tag-green' : 'tag-muted'}`} style={{ fontSize: '0.65rem' }}>
+                    {log.status}
+                  </span>
                 </div>
               </div>
             ))}
             {!(summary?.recentLogs || []).length && (
-              <div className="empty-state" style={{ padding: '1.25rem 0' }}>No alert logs yet.</div>
+              <div className="empty-state" style={{ padding: '1.5rem 0' }}>
+                <span className="empty-state-icon">🔕</span>
+                No alert logs yet.
+              </div>
             )}
           </div>
         </div>
